@@ -3,7 +3,7 @@
 
 #include "Curve.hpp"
 
-class BezierCurve : public Curve
+class CubicCurve : public Curve
 {
 private:
 
@@ -17,7 +17,7 @@ private:
 
 public:
 
-	BezierCurve(sf::Vector2f point1, sf::Vector2f point2, sf::Vector2f point3, sf::Vector2f point4);
+	CubicCurve(sf::Vector2f point1, sf::Vector2f point2, sf::Vector2f point3, sf::Vector2f point4);
 
 	sf::Vector2f calculatePoint(float time);
 

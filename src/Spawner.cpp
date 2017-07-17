@@ -6,7 +6,7 @@
 
 #include "Path.hpp"
 
-#include "BezierCurve.hpp"
+#include "CubicCurve.hpp"
 
 #include "LinearCurve.hpp"
 
@@ -89,7 +89,7 @@ void Spawner::loadFromFile(std::string filename)
 
 				sf::Vector2f point3(x3, y3);
 
-				BezierCurve * b = new BezierCurve(lastPoint, point1, point2, point3);
+				CubicCurve * b = new CubicCurve(lastPoint, point1, point2, point3);
 
 				curves.push_back(b);
 

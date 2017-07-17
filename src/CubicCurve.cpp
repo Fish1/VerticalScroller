@@ -1,12 +1,12 @@
-#include "BezierCurve.hpp"
+#include "CubicCurve.hpp"
 
-BezierCurve::BezierCurve(sf::Vector2f point1, sf::Vector2f point2, sf::Vector2f point3, sf::Vector2f point4) :
+CubicCurve::CubicCurve(sf::Vector2f point1, sf::Vector2f point2, sf::Vector2f point3, sf::Vector2f point4) :
 	m_point1(point1), m_point2(point2), m_point3(point3), m_point4(point4)
 {
 
 }
 
-sf::Vector2f BezierCurve::calculatePoint(float time)
+sf::Vector2f CubicCurve::calculatePoint(float time)
 {
 	float tt = time * time;
 

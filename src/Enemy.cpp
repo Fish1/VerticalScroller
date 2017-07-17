@@ -6,7 +6,7 @@
 
 #include "TextureManager.hpp"
 
-#include "BezierCurve.hpp"
+#include "CubicCurve.hpp"
 #include "LinearCurve.hpp"
 
 #include "Define.hpp"
