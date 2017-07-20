@@ -10,7 +10,7 @@
 
 Player::Player()
 {
-	m_sprite = new sf::Sprite(TextureManager::instance().get("player"));
+	m_sprite = new sf::Sprite(TextureManager::instance().get("ship"));
 
 	m_sprite->rotate(-90.0f);
 

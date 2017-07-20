@@ -21,7 +21,7 @@ World::World()
 {
 	m_spawner = new Spawner(m_enemies);
 	
-	m_spawner->loadFromFile("res/level1.txt");
+	m_spawner->loadFromFile("res/levels/level1.txt");
 
 	m_player = new Player();
 

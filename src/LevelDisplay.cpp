@@ -4,7 +4,7 @@ LevelDisplay::LevelDisplay(std::string text)
 {
 	m_font = new sf::Font();
 
-	m_font->loadFromFile("res/Audiowide-Regular.ttf");
+	m_font->loadFromFile("res/fonts/Audiowide-Regular.ttf");
 
 	m_text = new sf::Text(text, *m_font);
 

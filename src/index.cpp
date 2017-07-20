@@ -11,8 +11,14 @@ void loadTextures();
 int main(void)
 {
 	sf::RenderWindow window(sf::VideoMode(720, 720), "Game of Life", sf::Style::Close);
+
+	std::cout << std::endl;
+
+	std::cout << "Loading Textures..." << std::endl;
+
+	TextureManager::instance().loadFromIndex("res/textures/textureIndex.txt");
 	
-	loadTextures();
+	std::cout << std::endl;
 
 	StateManager stateManager;
 
@@ -32,23 +38,4 @@ int main(void)
 
 		window.display();
 	}
-}
-
-void loadTextures()
-{
-	std::cout << std::endl;
-
-	std::cout << "Loading textures..." << std::endl;
-
-	TextureManager & textureManager = TextureManager::instance();
-
-	textureManager.loadFromFile("player", "res/ship.png");
-
-	textureManager.loadFromFile("blueProjectile", "res/blueprojectile.png");
-	
-	textureManager.loadFromFile("redProjectile", "res/redprojectile.png");
-
-	textureManager.loadFromFile("enemy1", "res/enemy1.png");
-	
-	std::cout << std::endl;
 }

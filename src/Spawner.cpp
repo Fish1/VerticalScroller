@@ -59,6 +59,8 @@ void Spawner::loadFromFile(std::string filename)
 
 	std::getline(in, m_nextLevel);
 
+	m_nextLevel = "res/levels/" + m_nextLevel;
+
 	float delta;
 
 	std::string type;

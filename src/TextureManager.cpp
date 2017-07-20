@@ -4,6 +4,8 @@
 
 #include <iostream>
 
+#include <fstream>
+
 TextureManager * TextureManager::s_instance = nullptr;
 
 TextureManager::TextureManager()
@@ -24,6 +26,26 @@ TextureManager & TextureManager::instance()
 	}
 
 	return * s_instance;	
+}
+
+void TextureManager::loadFromIndex(std::string filename)
+{
+	std::ifstream in(filename);
+
+	std::string texturePath = "res/textures/";
+
+	std::string textureFilename;
+
+	while(in >> textureFilename)
+	{
+		unsigned int dotIndex = textureFilename.find(".");
+		
+		std::string key = textureFilename.substr(0, dotIndex);
+
+		textureFilename = texturePath + textureFilename;
+
+		loadFromFile(key, textureFilename);
+	}
 }
 
 void TextureManager::loadFromFile(std::string key, std::string filename)

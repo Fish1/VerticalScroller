@@ -19,7 +19,10 @@ sf::Vector2f CubicCurve::calculatePoint(float time)
 	float uuu = uu * u;
 
 	sf::Vector2f point = 
-		(uuu * m_point1) + (3 * uu * time * m_point2) + (3 * u * tt * m_point3) + (ttt * m_point4);
+		(uuu * m_point1) + 
+		(3 * uu * time * m_point2) + 
+		(3 * u * tt * m_point3) + 
+		(ttt * m_point4);
 
 	return point;
 

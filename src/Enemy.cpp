@@ -29,8 +29,6 @@ Enemy::Enemy(float health, float speed, std::string texture) :
 Enemy::~Enemy()
 {
 	delete m_path;
-
-	m_path = nullptr;
 }
 
 void Enemy::setPath(Path * path)
@@ -57,6 +55,8 @@ void Enemy::update(float delta)
 
 	float mag = sqrt((direction.x * direction.x) + (direction.y * direction.y));
 
+	// Move the GameObject towards the next waypoint
+
 	if(mag != 0.0f)
 	{
 		direction /= mag;
@@ -65,6 +65,8 @@ void Enemy::update(float delta)
 
 		m_sprite->move(direction);
 	}
+
+	// Rotate the GameObject towards the next waypoint
 
 	float rotation = atan2(direction.y, direction.x);
 
@@ -76,10 +78,7 @@ void Enemy::update(float delta)
 
 void Enemy::takeDamage(float damage)
 {
-	if(m_health > 0.0f)
-	{
-		m_health -= damage;
-	}
+	m_health -= damage;
 }
 
 float Enemy::getHealth()

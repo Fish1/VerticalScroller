@@ -8,7 +8,7 @@
 
 Bullet::Bullet(sf::Vector2f position, sf::Vector2f direction)
 {
-	m_sprite = new sf::Sprite(TextureManager::instance().get("blueProjectile"));
+	m_sprite = new sf::Sprite(TextureManager::instance().get("blueprojectile"));
 	
 	m_sprite->setPosition(position);
 
