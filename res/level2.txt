@@ -1,0 +1,18 @@
+Stage 2
+end
+3.0 enemy1 100 0 linear 100 750 #
+0.2 enemy1 100 0 linear 300 750 #
+0.2 enemy1 100 0 linear 500 750 #
+0.2 enemy1 100 0 linear 700 750 #
+3.0 enemy1 100 0 linear 100 750 #
+0.2 enemy1 100 0 linear 300 750 #
+0.2 enemy1 100 0 linear 500 750 #
+0.2 enemy1 100 0 linear 700 750 #
+3.0 enemy1 100 0 linear 100 750 #
+0.2 enemy1 100 0 linear 300 750 #
+0.2 enemy1 100 0 linear 500 750 #
+0.2 enemy1 100 0 linear 700 750 #
+3.0 enemy1 100 0 linear 100 750 #
+0.2 enemy1 100 0 linear 300 750 #
+0.2 enemy1 100 0 linear 500 750 #
+0.2 enemy1 100 0 linear 700 750 #

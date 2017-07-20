@@ -6,21 +6,24 @@
 
 #include "TextureManager.hpp"
 
+#include "Path.hpp"
+
 #include "CubicCurve.hpp"
+
 #include "LinearCurve.hpp"
+
+#include "Gun.hpp"
 
 #include "Define.hpp"
 
-Enemy::Enemy(int health, float speed, Path * path, std::string texture) :
-	m_health(health), m_speed(speed), m_path(path)
+Enemy::Enemy(float health, float speed, std::string texture) :
+	m_health(health), m_speed(speed)
 {
 	m_sprite = new sf::Sprite(TextureManager::instance().get(texture));
 
 	m_sprite->setScale(2.0f, 2.0f);
 	
 	m_sprite->setOrigin(m_sprite->getLocalBounds().width / 2.0f, m_sprite->getLocalBounds().height / 2.0f);
-
-	m_sprite->setPosition(m_path->getWaypoint().x, m_path->getWaypoint().y);
 }
 
 Enemy::~Enemy()
@@ -30,8 +33,22 @@ Enemy::~Enemy()
 	m_path = nullptr;
 }
 
+void Enemy::setPath(Path * path)
+{
+	m_path = path;
+
+	m_sprite->setPosition(m_path->getWaypoint().x, m_path->getWaypoint().y);
+}
+
 void Enemy::update(float delta)
 {
+	if(m_path == nullptr)
+	{
+		std::cout << "Warning - Enemy path not set" << std::endl;
+
+		return;
+	}
+
 	m_path->update(m_sprite->getPosition());
 	
 	sf::Vector2f waypoint = m_path->getWaypoint();
@@ -53,19 +70,19 @@ void Enemy::update(float delta)
 
 	rotation *= 180.0f / PI;
 
-	m_sprite->setRotation(rotation - 90.0f);
+	m_sprite->setRotation(rotation);
 
 }
 
-void Enemy::takeDamage()
+void Enemy::takeDamage(float damage)
 {
-	if(m_health != 0)
+	if(m_health > 0.0f)
 	{
-		--m_health;
+		m_health -= damage;
 	}
 }
 
-int Enemy::getHealth()
+float Enemy::getHealth()
 {
 	return m_health;
 }

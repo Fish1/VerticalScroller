@@ -4,7 +4,7 @@
 
 GameObject * EnemyBuilder::build()
 {
-	Enemy * enemy = new Enemy(m_health, m_speed, m_path, m_texture);
+	Enemy * enemy = new Enemy(m_health, m_speed, m_texture);
 
 	return enemy;
 }
@@ -19,13 +19,6 @@ EnemyBuilder & EnemyBuilder::setHealth(unsigned int health)
 EnemyBuilder & EnemyBuilder::setSpeed(float speed)
 {
 	m_speed = speed;
-
-	return *this;
-}
-
-EnemyBuilder & EnemyBuilder::setPath(Path * path)
-{
-	m_path = path;
 
 	return *this;
 }

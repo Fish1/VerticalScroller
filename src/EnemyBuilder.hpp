@@ -5,8 +5,6 @@
 
 #include <string>
 
-class Path;
-
 class EnemyBuilder : public Builder
 {
 private:
@@ -15,8 +13,6 @@ private:
 
 	float m_speed;
 
-	Path * m_path;
-
 	std::string m_texture;
 
 public:
@@ -24,8 +20,6 @@ public:
 	EnemyBuilder & setHealth(unsigned int health);
 
 	EnemyBuilder & setSpeed(float speed);
-
-	EnemyBuilder & setPath(Path * path);
 
 	EnemyBuilder & setTexture(std::string texture);
 

@@ -1,20 +1,18 @@
 #include <SFML/Graphics.hpp>
 
+#include <iostream>
+
 #include "StateManager.hpp"
 
 #include "TextureManager.hpp"
+
+void loadTextures();
 
 int main(void)
 {
 	sf::RenderWindow window(sf::VideoMode(720, 720), "Game of Life", sf::Style::Close);
 	
-	TextureManager & textureManager = TextureManager::instance();
-
-	textureManager.loadFromFile("player", "res/ship.png");
-
-	textureManager.loadFromFile("blueProjectile", "res/blueprojectile.png");
-
-	textureManager.loadFromFile("enemy1", "res/enemy1.png");
+	loadTextures();
 
 	StateManager stateManager;
 
@@ -34,4 +32,23 @@ int main(void)
 
 		window.display();
 	}
+}
+
+void loadTextures()
+{
+	std::cout << std::endl;
+
+	std::cout << "Loading textures..." << std::endl;
+
+	TextureManager & textureManager = TextureManager::instance();
+
+	textureManager.loadFromFile("player", "res/ship.png");
+
+	textureManager.loadFromFile("blueProjectile", "res/blueprojectile.png");
+	
+	textureManager.loadFromFile("redProjectile", "res/redprojectile.png");
+
+	textureManager.loadFromFile("enemy1", "res/enemy1.png");
+	
+	std::cout << std::endl;
 }

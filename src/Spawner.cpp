@@ -1,6 +1,8 @@
 #include "Spawner.hpp"
 
+#include "EnemyFactory.hpp"
 #include "EnemyBuilder.hpp"
+#include "Enemy.hpp"
 
 #include "SpawnElement.hpp"
 
@@ -17,7 +19,7 @@
 Spawner::Spawner(std::vector<GameObject *> & gameObjects) :
 	m_gameObjects(gameObjects)
 {
-
+	m_enemyFactory = new EnemyFactory();
 }
 
 void Spawner::update(float delta)
@@ -33,10 +35,9 @@ void Spawner::update(float delta)
 
 	if(m_lastSpawn > spawnElement->getDelta())
 	{
-		EnemyBuilder builder;
+		Enemy * enemy = dynamic_cast<Enemy*>(m_enemyFactory->build(spawnElement->getType()));
 
-		GameObject * enemy = builder.setHealth(2).setSpeed(150.0f).setPath(spawnElement->getPath()).
-			setTexture("enemy1").build();
+		enemy->setPath(spawnElement->getPath());
 
 		m_gameObjects.push_back(enemy);
 
@@ -53,6 +54,10 @@ void Spawner::loadFromFile(std::string filename)
 	std::ifstream in;
 
 	in.open(filename);
+
+	std::getline(in, m_levelName);
+
+	std::getline(in, m_nextLevel);
 
 	float delta;
 
@@ -123,4 +128,19 @@ void Spawner::loadFromFile(std::string filename)
 		
 		m_spawnElements.push_back(element);
 	}
+}
+
+void Spawner::loadNextLevel()
+{
+	loadFromFile(m_nextLevel);
+}
+
+std::string Spawner::getLevelName()
+{
+	return m_levelName;
+}
+
+bool Spawner::empty()
+{
+	return m_spawnElements.size() == 0;
 }

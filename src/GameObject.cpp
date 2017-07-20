@@ -1,5 +1,10 @@
 #include "GameObject.hpp"
 
+GameObject::GameObject()
+{
+	m_sprite = new sf::Sprite();
+}
+
 GameObject::~GameObject()
 {
 	if(m_sprite != nullptr)
@@ -23,7 +28,15 @@ void GameObject::update(float delta)
 
 }
 
-sf::Vector2f GameObject::getPosition()
+void GameObject::setPosition(sf::Vector2f position)
+{
+	if(m_sprite != nullptr)
+	{
+		m_sprite->setPosition(position);
+	}
+}
+
+sf::Vector2f GameObject::getPosition() const
 {
 	if(m_sprite != nullptr)
 	{
@@ -33,7 +46,25 @@ sf::Vector2f GameObject::getPosition()
 	return sf::Vector2f(0.0f, 0.0f);
 }
 
-sf::FloatRect GameObject::getGlobalBounds()
+void GameObject::setRotation(float rotation)
+{
+	if(m_sprite != nullptr)
+	{
+		m_sprite->setRotation(rotation);
+	}
+}
+
+float GameObject::getRotation() const
+{
+	if(m_sprite != nullptr)
+	{
+		return m_sprite->getRotation();
+	}
+
+	return 0.0f;
+}
+
+sf::FloatRect GameObject::getGlobalBounds() const
 {
 	if(m_sprite != nullptr)
 	{

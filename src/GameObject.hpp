@@ -15,15 +15,23 @@ protected:
 
 public:
 
+	GameObject();
+
 	~GameObject();
 
 	virtual void update(float delta);
 
-	void move(sf::Vector2f());
+	void move(sf::Vector2f move);
+	
+	void setPosition(sf::Vector2f position);
 
-	sf::Vector2f getPosition();
+	sf::Vector2f getPosition() const;
 
-	sf::FloatRect getGlobalBounds();
+	void setRotation(float rotation);
+
+	float getRotation() const;
+
+	sf::FloatRect getGlobalBounds() const;
 };
 
 #endif

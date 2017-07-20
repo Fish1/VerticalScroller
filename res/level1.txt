@@ -1,18 +1,21 @@
-0.0 enemy 300 0 cubic 600 1200 600 -500 300 720 #
-0.0 enemy 600 0 linear 600 720 #
-0.0 enemy 100 0 linear 100 720 #
-2.0 enemy 300 0 cubic 600 1200 600 -500 300 720 #
-0.0 enemy 600 0 linear 600 720 #
-0.0 enemy 100 0 linear 100 720 #
-2.0 enemy 300 0 cubic 600 1200 600 -500 300 720 #
-0.0 enemy 600 0 linear 600 720 #
-0.0 enemy 100 0 linear 100 720 #
-2.0 enemy 300 0 cubic 600 1200 600 -500 300 720 #
-0.0 enemy 600 0 linear 600 720 #
-0.0 enemy 100 0 linear 100 720 #
-2.0 enemy 300 0 cubic 600 1200 600 -500 300 720 #
-0.0 enemy 600 0 linear 600 720 #
-0.0 enemy 100 0 linear 100 720 #
-2.0 enemy 300 0 cubic 600 1200 600 -500 300 720 #
-0.0 enemy 600 0 linear 600 720 #
-0.0 enemy 100 0 linear 100 720 #
+Stage 1
+res/level2.txt
+3.0 enemy1 300 0 cubic 600 1200 600 -500 300 750 #
+0.0 enemy1 600 0 linear 600 750 #
+0.0 enemy1 100 0 linear 100 750 #
+2.0 enemy1 300 0 cubic 600 1200 600 -500 300 750 #
+0.0 enemy1 600 0 linear 600 750 #
+0.0 enemy1 100 0 linear 100 750 #
+2.0 enemy1 300 0 cubic 600 1200 600 -500 300 750 #
+0.0 enemy1 600 0 linear 600 750 #
+0.0 enemy1 100 0 linear 100 750 #
+2.0 enemy1 300 0 cubic 600 1200 600 -500 300 750 #
+0.0 enemy1 600 0 linear 600 750 #
+0.0 enemy1 100 0 linear 100 750 #
+2.0 enemy1 300 0 cubic 600 1200 600 -500 300 750 #
+0.0 enemy1 600 0 linear 600 750 #
+0.0 enemy1 100 0 linear 100 750 #
+2.0 enemy1 300 0 cubic 600 1200 600 -500 300 750 #
+0.0 enemy1 600 0 linear 600 750 #
+0.0 enemy1 100 0 linear 100 750 #
+2.0 enemy1 -30 200 linear 300 200 linear 300 400 linear -30 400 #

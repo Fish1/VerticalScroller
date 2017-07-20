@@ -3,7 +3,9 @@
 
 #include "GameObject.hpp"
 
-#include "Path.hpp"
+class Path;
+
+class Gun;
 
 class Enemy : public GameObject
 {
@@ -11,21 +13,25 @@ private:
 
 	const float m_speed;
 
-	int m_health;
+	float m_health;
 
-	Path * m_path;
+	Path * m_path = nullptr;
+
+	Gun * m_gun = nullptr;
 
 public:
 
-	Enemy(int health, float speed, Path * path, std::string texture);
+	Enemy(float health, float speed, std::string texture);
 
 	~Enemy();
 
+	void setPath(Path * path);
+
 	void update(float delta);
 
-	void takeDamage();
+	void takeDamage(float damage);
 
-	int getHealth();
+	float getHealth();
 };
 
 #endif

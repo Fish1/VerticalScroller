@@ -19,7 +19,7 @@ Path::Path(std::vector<Curve *> curves, unsigned int split)
 
 sf::Vector2f Path::getWaypoint()
 {
-	return m_waypoints.at(0);
+	return m_waypoints.at(m_waypoint);
 }
 
 void Path::update(sf::Vector2f currentPosition)
@@ -31,9 +31,11 @@ void Path::update(sf::Vector2f currentPosition)
 
 	if(distance < 10.0f)
 	{
-		if(m_waypoints.size() > 1)
+		m_waypoint += 1;
+
+		if(m_waypoint == m_waypoints.size())
 		{
-			m_waypoints.erase(m_waypoints.begin());
+			m_waypoint = 0;
 		}
 	}
 }

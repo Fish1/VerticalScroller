@@ -13,6 +13,8 @@ private:
 
 	std::vector<sf::Vector2f> m_waypoints;
 
+	unsigned int m_waypoint = 0;
+
 public:
 
 	Path(std::vector<Curve *> curves, unsigned int split);

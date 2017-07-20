@@ -5,12 +5,9 @@ class GameObject;
 
 class Builder
 {
-private:
-
 public:
 
 	virtual GameObject * build() = 0;
-
 };
 
 #endif

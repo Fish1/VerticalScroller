@@ -18,6 +18,8 @@ protected:
 
 public:
 
+	State();
+
 	State * getNextState() const;
 
 	virtual void update(float delta) = 0;

@@ -1,9 +1,9 @@
 #ifndef STATEMANAGER_HPP
 #define STATEMANAGER_HPP
 
-#include "State.hpp"
+#include <SFML/Graphics.hpp>
 
-#include "SFML/Graphics.hpp"
+class State;
 
 class StateManager
 {

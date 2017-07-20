@@ -2,9 +2,13 @@
 
 #include "MenuState.hpp"
 
+#include <iostream>
+
 StateManager::StateManager()
 {
 	m_state = new MenuState();
+		
+	std::cout << " -- " << m_state << std::endl;
 }
 
 void StateManager::update(sf::RenderTarget & target)
@@ -18,7 +22,9 @@ void StateManager::update(sf::RenderTarget & target)
 	if(m_state != m_state->getNextState())
 	{
 		State * nextState = m_state->getNextState();
-
+	
+		std::cout << " -- " << nextState << std::endl;
+		
 		delete m_state;
 
 		m_state = nextState;

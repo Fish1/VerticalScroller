@@ -3,17 +3,23 @@
 
 #include <vector>
 
-#include <stdlib.h>
-
 #include <string>
 
 class GameObject;
 
 class SpawnElement;
 
+class EnemyFactory;
+
 class Spawner
 {
 private:
+
+	EnemyFactory * m_enemyFactory;
+
+	std::string m_nextLevel;
+
+	std::string m_levelName;
 
 	const float m_spawnRate = 1.0f;
 
@@ -31,6 +37,11 @@ public:
 
 	void loadFromFile(std::string filename);
 
+	void loadNextLevel();
+
+	std::string getLevelName();
+
+	bool empty();
 };
 
 #endif
