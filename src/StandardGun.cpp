@@ -27,5 +27,12 @@ void StandardGun::fire()
 
 	Bullet * bullet = new Bullet(getPosition(), sf::Vector2f(x, y));
 
-	m_world.addBullet(bullet);
+	if(m_player)
+	{
+		m_world.addPlayerBullet(bullet);
+	}
+	else
+	{
+		m_world.addEnemyBullet(bullet);
+	}
 }

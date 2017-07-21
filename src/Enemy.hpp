@@ -25,6 +25,8 @@ public:
 
 	~Enemy();
 
+	void setGun(Gun * gun);
+
 	void setPath(Path * path);
 
 	void update(float delta);

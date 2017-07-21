@@ -12,12 +12,15 @@
 
 #include "LinearCurve.hpp"
 
+#include "SlowGun.hpp"
+#include "StandardGun.hpp"
+
 #include <fstream>
 
 #include <iostream>
 
-Spawner::Spawner(std::vector<GameObject *> & gameObjects) :
-	m_gameObjects(gameObjects)
+Spawner::Spawner(World & world) :
+	m_world(world)
 {
 	m_enemyFactory = new EnemyFactory();
 }
@@ -39,7 +42,9 @@ void Spawner::update(float delta)
 
 		enemy->setPath(spawnElement->getPath());
 
-		m_gameObjects.push_back(enemy);
+		enemy->setGun(new SlowGun(m_world));
+
+		m_world.addEnemy(enemy);
 
 		m_lastSpawn = 0.0f;
 

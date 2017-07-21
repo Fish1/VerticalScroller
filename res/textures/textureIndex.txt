@@ -1,4 +1,6 @@
 enemy1.png
+boss1.png
 ship.png
 redprojectile.png
 blueprojectile.png
+triupgrade.png

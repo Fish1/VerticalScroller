@@ -58,6 +58,8 @@ void Player::update(float delta)
 void Player::setGun(Gun * gun)
 {
 	m_gun = gun;
+
+	gun->markPlayer();
 }
 
 void Player::takeDamage(float damage)

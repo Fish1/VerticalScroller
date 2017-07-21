@@ -6,7 +6,16 @@ GameObject * EnemyBuilder::build()
 {
 	Enemy * enemy = new Enemy(m_health, m_speed, m_texture);
 
+	enemy->setGun(m_gun);
+
 	return enemy;
+}
+
+EnemyBuilder & EnemyBuilder::setGun(Gun * gun)
+{
+	m_gun = gun;
+
+	return *this;
 }
 
 EnemyBuilder & EnemyBuilder::setHealth(unsigned int health)

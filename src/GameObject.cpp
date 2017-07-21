@@ -28,6 +28,16 @@ void GameObject::update(float delta)
 
 }
 
+void GameObject::markDelete()
+{
+	m_delete = true;
+}
+
+bool GameObject::getDelete()
+{
+	return m_delete;
+}
+
 void GameObject::setPosition(sf::Vector2f position)
 {
 	if(m_sprite != nullptr)

@@ -5,6 +5,8 @@
 
 #include <string>
 
+#include "World.hpp"
+
 class GameObject;
 
 class SpawnElement;
@@ -25,13 +27,13 @@ private:
 
 	float m_lastSpawn = 0.0f;
 
-	std::vector<GameObject *> & m_gameObjects;	
+	World & m_world;
 
 	std::vector<SpawnElement *> m_spawnElements;
 
 public:
 
-	Spawner(std::vector<GameObject *> & gameObjects);
+	Spawner(World & world);
 
 	void update(float delta);
 

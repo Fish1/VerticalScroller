@@ -1,21 +1,69 @@
 Stage 1
 level2.txt
-3.0 enemy1 300 0 cubic 600 1200 600 -500 300 750 #
+3.0 enemy2 300 0 cubic 600 1200 600 -500 300 750 #
+0.0 enemy1 100 0 linear 100 750 #
+0.0 enemy1 600 0 linear 600 750 #
+2.0 enemy2 300 0 cubic 600 1200 600 -500 300 750 #
 0.0 enemy1 600 0 linear 600 750 #
 0.0 enemy1 100 0 linear 100 750 #
-2.0 enemy1 300 0 cubic 600 1200 600 -500 300 750 #
+2.0 enemy2 300 0 cubic 600 1200 600 -500 300 750 #
 0.0 enemy1 600 0 linear 600 750 #
 0.0 enemy1 100 0 linear 100 750 #
-2.0 enemy1 300 0 cubic 600 1200 600 -500 300 750 #
+2.0 enemy2 300 0 cubic 600 1200 600 -500 300 750 #
 0.0 enemy1 600 0 linear 600 750 #
 0.0 enemy1 100 0 linear 100 750 #
-2.0 enemy1 300 0 cubic 600 1200 600 -500 300 750 #
+2.0 enemy2 300 0 cubic 600 1200 600 -500 300 750 #
 0.0 enemy1 600 0 linear 600 750 #
 0.0 enemy1 100 0 linear 100 750 #
-2.0 enemy1 300 0 cubic 600 1200 600 -500 300 750 #
+2.0 enemy2 300 0 cubic 600 1200 600 -500 300 750 #
 0.0 enemy1 600 0 linear 600 750 #
 0.0 enemy1 100 0 linear 100 750 #
-2.0 enemy1 300 0 cubic 600 1200 600 -500 300 750 #
-0.0 enemy1 600 0 linear 600 750 #
-0.0 enemy1 100 0 linear 100 750 #
-2.0 enemy1 -30 200 linear 300 200 linear 300 400 linear -30 400 #
+1.0 boss1 0 -50 cubic 20 400 700 400 720 -50 #
+0.5 enemy2 600 0 linear 600 750 #
+0.5 enemy2 400 0 linear 400 750 #
+0.5 enemy2 500 0 linear 500 750 #
+0.5 enemy2 100 0 linear 100 750 #
+0.5 enemy2 300 0 linear 300 750 #
+0.5 enemy2 500 0 linear 500 750 #
+0.5 enemy2 600 0 linear 600 750 #
+0.5 enemy2 200 0 linear 200 750 #
+0.5 enemy2 600 0 linear 600 750 #
+0.5 enemy2 400 0 linear 400 750 #
+0.5 enemy2 500 0 linear 500 750 #
+0.5 enemy2 100 0 linear 100 750 #
+0.5 enemy2 300 0 linear 300 750 #
+0.5 enemy2 500 0 linear 500 750 #
+0.5 enemy2 600 0 linear 600 750 #
+0.5 enemy2 200 0 linear 200 750 #
+0.5 enemy2 600 0 linear 600 750 #
+0.5 enemy2 400 0 linear 400 750 #
+0.5 enemy2 500 0 linear 500 750 #
+0.5 enemy2 100 0 linear 100 750 #
+0.5 enemy2 300 0 linear 300 750 #
+0.5 enemy2 500 0 linear 500 750 #
+0.5 enemy2 600 0 linear 600 750 #
+0.5 enemy2 200 0 linear 200 750 #
+0.5 enemy2 600 0 linear 600 750 #
+0.5 enemy2 400 0 linear 400 750 #
+0.5 enemy2 500 0 linear 500 750 #
+0.5 enemy2 100 0 linear 100 750 #
+0.5 enemy2 300 0 linear 300 750 #
+0.5 enemy2 500 0 linear 500 750 #
+0.5 enemy2 600 0 linear 600 750 #
+0.5 enemy2 200 0 linear 200 750 #
+0.5 enemy2 600 0 linear 600 750 #
+0.5 enemy2 400 0 linear 400 750 #
+0.5 enemy2 500 0 linear 500 750 #
+0.5 enemy2 100 0 linear 100 750 #
+0.5 enemy2 300 0 linear 300 750 #
+0.5 enemy2 500 0 linear 500 750 #
+0.5 enemy2 600 0 linear 600 750 #
+0.5 enemy2 200 0 linear 200 750 #
+0.5 enemy2 600 0 linear 600 750 #
+0.5 enemy2 400 0 linear 400 750 #
+0.5 enemy2 500 0 linear 500 750 #
+0.5 enemy2 100 0 linear 100 750 #
+0.5 enemy2 300 0 linear 300 750 #
+0.5 enemy2 500 0 linear 500 750 #
+0.5 enemy2 600 0 linear 600 750 #
+0.5 enemy2 200 0 linear 200 750 #

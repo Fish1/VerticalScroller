@@ -2,6 +2,8 @@
 
 #include "EnemyBuilder.hpp"
 
+#include "StandardGun.hpp"
+
 EnemyFactory::EnemyFactory()
 {
 	/*
@@ -24,6 +26,16 @@ EnemyFactory::EnemyFactory()
 	builder->setHealth(1).setSpeed(320.0f).setTexture("enemy1");
 
 	m_builders.insert(std::pair<std::string, EnemyBuilder*>("enemy2", builder));
+
+	/*
+	 * "boss1" has more health but slower speed
+	 */
+
+	builder = new EnemyBuilder();
+
+	builder->setHealth(20).setSpeed(100.0f).setTexture("boss1");
+
+	m_builders.insert(std::pair<std::string, EnemyBuilder*>("boss1", builder));
 }
 
 GameObject * EnemyFactory::build(std::string key)

@@ -31,6 +31,11 @@ Enemy::~Enemy()
 	delete m_path;
 }
 
+void Enemy::setGun(Gun * gun)
+{
+	m_gun = gun;
+}
+
 void Enemy::setPath(Path * path)
 {
 	m_path = path;
@@ -40,40 +45,46 @@ void Enemy::setPath(Path * path)
 
 void Enemy::update(float delta)
 {
-	if(m_path == nullptr)
+	if(m_path != nullptr)
 	{
-		std::cout << "Warning - Enemy path not set" << std::endl;
+		m_path->update(m_sprite->getPosition());
+		
+		sf::Vector2f waypoint = m_path->getWaypoint();
 
-		return;
+		sf::Vector2f direction = waypoint - m_sprite->getPosition();
+
+		float mag = sqrt((direction.x * direction.x) + (direction.y * direction.y));
+
+		// Move the GameObject towards the next waypoint
+
+		if(mag != 0.0f)
+		{
+			direction /= mag;
+
+			direction *= m_speed * delta;
+
+			m_sprite->move(direction);
+		}
+
+		// Rotate the GameObject towards the next waypoint
+
+		float rotation = atan2(direction.y, direction.x);
+
+		rotation *= 180.0f / PI;
+
+		m_sprite->setRotation(rotation);
 	}
-
-	m_path->update(m_sprite->getPosition());
 	
-	sf::Vector2f waypoint = m_path->getWaypoint();
-
-	sf::Vector2f direction = waypoint - m_sprite->getPosition();
-
-	float mag = sqrt((direction.x * direction.x) + (direction.y * direction.y));
-
-	// Move the GameObject towards the next waypoint
-
-	if(mag != 0.0f)
+	if(m_gun != nullptr)
 	{
-		direction /= mag;
+		m_gun->update(delta);
 
-		direction *= m_speed * delta;
+		m_gun->setPosition(getPosition());
 
-		m_sprite->move(direction);
+		m_gun->setRotation(getRotation());
+
+		m_gun->fire();
 	}
-
-	// Rotate the GameObject towards the next waypoint
-
-	float rotation = atan2(direction.y, direction.x);
-
-	rotation *= 180.0f / PI;
-
-	m_sprite->setRotation(rotation);
-
 }
 
 void Enemy::takeDamage(float damage)

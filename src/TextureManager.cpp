@@ -54,7 +54,7 @@ void TextureManager::loadFromFile(std::string key, std::string filename)
 
 	if(!texture->loadFromFile(filename))
 	{
-		std::cout << "Error Loading Texture - " + filename << std::endl;
+		std::cout << "Error -- " + filename << std::endl;
 
 		delete texture;
 
@@ -62,7 +62,7 @@ void TextureManager::loadFromFile(std::string key, std::string filename)
 	}
 	else
 	{
-		std::cout << "Loaded Texture - " + filename << std::endl;
+		std::cout << " -- " + filename << std::endl;
 	}
 
 	m_textures.insert(std::pair<std::string, sf::Texture*>(key, texture));

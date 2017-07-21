@@ -10,7 +10,7 @@ void loadTextures();
 
 int main(void)
 {
-	sf::RenderWindow window(sf::VideoMode(720, 720), "Game of Life", sf::Style::Close);
+	sf::RenderWindow window(sf::VideoMode(720, 720), "Agalag", sf::Style::Close);
 
 	std::cout << std::endl;
 

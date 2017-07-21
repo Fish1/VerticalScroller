@@ -15,19 +15,30 @@
 #include "TriGun.hpp"
 #include "StandardGun.hpp"
 
+#include "Upgrade.hpp"
+#include "TriGunUpgrade.hpp"
+
 #include "LevelDisplay.hpp"
 
 World::World()
 {
-	m_spawner = new Spawner(m_enemies);
+	m_spawner = new Spawner(*this);
 	
 	m_spawner->loadFromFile("res/levels/level1.txt");
 
 	m_player = new Player();
 
-	dynamic_cast<Player*>(m_player)->setGun(new StandardGun(*this));
+	Gun * gun = new StandardGun(*this);
+
+	gun->markPlayer();
+
+	dynamic_cast<Player*>(m_player)->setGun(gun);
 
 	m_levelDisplay = new LevelDisplay(m_spawner->getLevelName());
+
+	Upgrade * upgrade = new TriGunUpgrade;
+
+	m_upgrades.push_back(upgrade);
 }
 
 World::~World()
@@ -41,7 +52,12 @@ World::~World()
 		delete enemy;
 	}
 
-	for(GameObject * bullet : m_bullets)
+	for(GameObject * bullet : m_playerBullets)
+	{
+		delete bullet;
+	}
+	
+	for(GameObject * bullet : m_enemyBullets)
 	{
 		delete bullet;
 	}
@@ -57,21 +73,36 @@ void World::addEnemy(Enemy * enemy)
 	m_enemies.push_back(enemy);
 }
 
-void World::addBullet(Bullet * bullet)
+void World::addEnemyBullet(Bullet * bullet)
 {
-	m_bullets.push_back(bullet);
+	m_enemyBullets.push_back(bullet);
+}
+
+void World::addPlayerBullet(Bullet * bullet)
+{
+	m_playerBullets.push_back(bullet);
 }
 
 void World::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
+	for(GameObject * bullet : m_playerBullets)
+	{
+		target.draw(*bullet);
+	}
+
+	for(GameObject * bullet : m_enemyBullets)
+	{
+		target.draw(*bullet);
+	}
+	
 	for(GameObject * enemy : m_enemies)
 	{
 		target.draw(*enemy);
 	}
 
-	for(GameObject * bullet : m_bullets)
+	for(GameObject * upgrade : m_upgrades)
 	{
-		target.draw(*bullet);
+		target.draw(*upgrade);
 	}
 
 	target.draw(*m_player);
@@ -92,12 +123,24 @@ void World::update(float delta)
 		enemy->update(delta);
 	}
 
-	for(GameObject * bullet : m_bullets)
+	for(GameObject * bullet : m_playerBullets)
 	{
 		bullet->update(delta);
 	}
 
+	for(GameObject * bullet : m_enemyBullets)
+	{
+		bullet->update(delta);
+	}
+
+	for(GameObject * upgrade : m_upgrades)
+	{
+		upgrade->update(delta);
+	}
+
 	updateCollision();
+
+	updateDeletes();
 
 	if(m_enemies.size() == 0 && m_spawner->empty())
 	{
@@ -111,13 +154,32 @@ void World::update(float delta)
 
 void World::updateCollision()
 {
-	std::vector<GameObject *> deletePool;
+
+	for(GameObject * upgrade : m_upgrades)
+	{
+		if(m_player->getGlobalBounds().intersects(upgrade->getGlobalBounds()))
+		{
+			Player * player = dynamic_cast<Player*>(m_player);
+
+			dynamic_cast<Upgrade*>(upgrade)->activate(player, this);
+		}
+	}
+
+	for(GameObject * bullet : m_enemyBullets)
+	{
+		if(m_player->getGlobalBounds().intersects(bullet->getGlobalBounds()))
+		{
+			dynamic_cast<Player*>(m_player)->takeDamage(10.0f);
+
+			bullet->markDelete();
+		}
+	}
 
 	for(GameObject * enemy : m_enemies)
 	{
 		if(enemy->getPosition().y > 720.0f)
 		{
-			deletePool.push_back(enemy);
+			enemy->markDelete();
 		}
 
 		if(enemy->getGlobalBounds().intersects(m_player->getGlobalBounds()))
@@ -125,7 +187,7 @@ void World::updateCollision()
 			dynamic_cast<Player*>(m_player)->takeDamage(10.0f);
 		}
 
-		for(GameObject * bullet : m_bullets)
+		for(GameObject * bullet : m_playerBullets)
 		{
 			if(enemy->getGlobalBounds().intersects(bullet->getGlobalBounds()))
 			{
@@ -135,44 +197,56 @@ void World::updateCollision()
 			
 				if(enemyCast->getHealth() == 0)
 				{
-					deletePool.push_back(enemy);
-				}	
+					enemy->markDelete();
+				}
 
-				deletePool.push_back(bullet);
+				bullet->markDelete();
 			}
 		}
 	}
+}
 
-
-	// Delete duplicates of objects. (If two bullets hit an enemy at the same time)
+void World::updateDeletes()
+{
+	for(unsigned int index = 0; index < m_enemies.size(); ++index)
 	{
-		sort(deletePool.begin(), deletePool.end());
+		GameObject * enemy = m_enemies.at(index);
 
-		deletePool.erase(unique(deletePool.begin(), deletePool.end()), deletePool.end());
+		if(enemy->getDelete())
+		{
+			m_enemies.erase(m_enemies.begin() + index);
+
+			delete enemy;
+
+			--index;
+		}
 	}
 
-	for(GameObject * gameObject : deletePool)
+	for(unsigned int index = 0; index < m_playerBullets.size(); ++index)
 	{
-		for(unsigned int index = 0; index < m_enemies.size(); ++index)
+		GameObject * bullet = m_playerBullets.at(index);
+
+		if(bullet->getDelete())
 		{
-			if(m_enemies.at(index) == gameObject)
-			{
-				m_enemies.erase(m_enemies.begin() + index);
+			m_playerBullets.erase(m_playerBullets.begin() + index);
 
-				break;
-			}
+			delete bullet;
+
+			--index;
 		}
+	}
 
-		for(unsigned int index = 0; index < m_bullets.size(); ++index)
+	for(unsigned int index = 0; index < m_upgrades.size(); ++index)
+	{
+		GameObject * upgrade = m_upgrades.at(index);
+
+		if(upgrade->getDelete())
 		{
-			if(m_bullets.at(index) == gameObject)
-			{
-				m_bullets.erase(m_bullets.begin() + index);
+			m_upgrades.erase(m_upgrades.begin() + index);
 
-				break;
-			}
+			delete upgrade;
+
+			--index;
 		}
-
-		delete gameObject;
 	}
 }

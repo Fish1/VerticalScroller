@@ -15,12 +15,19 @@ protected:
 
 	const float m_fireRate;
 
+	bool m_player = false;
+
 public:
 
 	Gun(World & world, float fireRate) :
 		m_world(world), m_fireRate(fireRate)
 	{
 		m_lastFire = m_fireRate;	
+	}
+
+	void markPlayer()
+	{
+		m_player = true;
 	}
 
 	void update(float delta)

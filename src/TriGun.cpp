@@ -40,7 +40,16 @@ void TriGun::fire()
 
 	Bullet * bulletC = new Bullet(getPosition(), sf::Vector2f(xC, yC));
 
-	m_world.addBullet(bulletA);
-	m_world.addBullet(bulletB);
-	m_world.addBullet(bulletC);
+	if(m_player)
+	{
+		m_world.addPlayerBullet(bulletA);
+		m_world.addPlayerBullet(bulletB);
+		m_world.addPlayerBullet(bulletC);
+	}
+	else
+	{
+		m_world.addEnemyBullet(bulletA);
+		m_world.addEnemyBullet(bulletB);
+		m_world.addEnemyBullet(bulletC);
+	}
 }

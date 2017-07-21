@@ -5,6 +5,8 @@
 
 #include <string>
 
+class Gun;
+
 class EnemyBuilder : public Builder
 {
 private:
@@ -15,7 +17,11 @@ private:
 
 	std::string m_texture;
 
+	Gun * m_gun = nullptr;
+
 public:
+
+	EnemyBuilder & setGun(Gun * gun);
 
 	EnemyBuilder & setHealth(unsigned int health);
 

@@ -7,6 +7,8 @@ class GameObject : public sf::Drawable
 {
 private:
 
+	bool m_delete = false;
+
 	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 
 protected:
@@ -20,6 +22,10 @@ public:
 	~GameObject();
 
 	virtual void update(float delta);
+
+	void markDelete();
+
+	bool getDelete();
 
 	void move(sf::Vector2f move);
 	

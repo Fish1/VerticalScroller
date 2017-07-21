@@ -29,13 +29,19 @@ private:
 		
 	std::vector<GameObject *> m_enemies;
 
-	std::vector<GameObject *> m_bullets;
+	std::vector<GameObject *> m_enemyBullets;
+
+	std::vector<GameObject *> m_playerBullets;
+
+	std::vector<GameObject *> m_upgrades;
 
 private:
 
 	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 
 	void updateCollision();
+
+	void updateDeletes();
 
 public:
 
@@ -49,7 +55,9 @@ public:
 
 	void addEnemy(Enemy * enemy);
 
-	void addBullet(Bullet * bullet);
+	void addPlayerBullet(Bullet * bullet);
+
+	void addEnemyBullet(Bullet * bullet);
 };
 
 #endif
