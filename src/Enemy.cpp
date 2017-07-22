@@ -16,6 +16,8 @@
 
 #include "Define.hpp"
 
+#include "GunBuilder.hpp"
+
 Enemy::Enemy(float health, float speed, std::string texture) :
 	m_health(health), m_speed(speed)
 {

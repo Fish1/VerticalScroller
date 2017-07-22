@@ -2,8 +2,6 @@
 
 #include "EnemyBuilder.hpp"
 
-#include "StandardGun.hpp"
-
 EnemyFactory::EnemyFactory()
 {
 	/*

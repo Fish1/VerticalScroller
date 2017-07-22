@@ -2,11 +2,13 @@
 
 #include "Define.hpp"
 
-#include <iostream>
-
 #include "TextureManager.hpp"
 
 #include "Gun.hpp"
+
+#include "Define.hpp"
+
+#include <iostream>
 
 Player::Player()
 {
@@ -23,43 +25,55 @@ Player::Player()
 
 void Player::update(float delta)
 {
+	sf::Vector2f direction(0.0f, 0.0f);
+
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-		m_sprite->move(sf::Vector2f(0.0f, -1.0f) * m_speed * delta);
+		direction += sf::Vector2f(0.0f, -1.0f);	
 	}
 	
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
-		m_sprite->move(sf::Vector2f(0.0f, 1.0f) * m_speed * delta);
+		direction += sf::Vector2f(0.0f, 1.0f);	
 	}
 	
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
-		m_sprite->move(sf::Vector2f(-1.0f, 0.0f) * m_speed  * delta);
+		direction += sf::Vector2f(-1.0f, 0.0f);
 	}
 	
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
-		m_sprite->move(sf::Vector2f(1.0f, 0.0f) * m_speed * delta);
+		direction += sf::Vector2f(1.0f, 0.0f);
 	}
 
-	m_gun->update(delta);
+	float mag = sqrt((direction.x * direction.x) + (direction.y * direction.y));
 
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	direction /= mag;
+
+	if(mag != 0.0f)
 	{
-		m_gun->setPosition(getPosition());
+		m_sprite->move(direction * 450.0f * delta);
+	}
 
-		m_gun->setRotation(getRotation());
+	if(m_gun != nullptr)
+	{
+		m_gun->update(delta);
+		
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		{
+			m_gun->setPosition(getPosition());
 
-		m_gun->fire();
+			m_gun->setRotation(getRotation());
+
+			m_gun->fire();
+		}
 	}
 }
 
 void Player::setGun(Gun * gun)
 {
 	m_gun = gun;
-
-	gun->markPlayer();
 }
 
 void Player::takeDamage(float damage)

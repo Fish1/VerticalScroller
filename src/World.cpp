@@ -12,13 +12,19 @@
 
 #include "Bullet.hpp"
 
-#include "TriGun.hpp"
-#include "StandardGun.hpp"
-
 #include "Upgrade.hpp"
+
 #include "TriGunUpgrade.hpp"
 
 #include "LevelDisplay.hpp"
+
+#include "Gun.hpp"
+
+#include "GunBuilder.hpp"
+
+#include "Bullet.hpp"
+
+#include "Define.hpp"
 
 World::World()
 {
@@ -28,17 +34,28 @@ World::World()
 
 	m_player = new Player();
 
-	Gun * gun = new StandardGun(*this);
-
-	gun->markPlayer();
-
-	dynamic_cast<Player*>(m_player)->setGun(gun);
-
 	m_levelDisplay = new LevelDisplay(m_spawner->getLevelName());
 
 	Upgrade * upgrade = new TriGunUpgrade;
 
 	m_upgrades.push_back(upgrade);
+
+	GunBuilder gunBuilder;
+
+	gunBuilder.setWorld(this).setFireRate(0.1f).setPlayer(true);
+
+	gunBuilder.setFire([](World * world, Gun * gun)
+	{
+		float rotation = gun->getRotation() * (PI / 180.0f);
+
+		float x = cos(rotation);
+
+		float y = sin(rotation);
+
+		world->addPlayerBullet(new Bullet(gun->getPosition(), sf::Vector2f(x, y)));
+	});
+
+	dynamic_cast<Player*>(m_player)->setGun(dynamic_cast<Gun*>(gunBuilder.build()));
 }
 
 World::~World()

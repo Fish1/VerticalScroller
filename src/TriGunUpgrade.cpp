@@ -4,8 +4,6 @@
 
 #include "Player.hpp"
 
-#include "TriGun.hpp"
-
 TriGunUpgrade::TriGunUpgrade()
 {
 	m_sprite->setTexture(TextureManager::instance().get("triupgrade"));
@@ -13,10 +11,6 @@ TriGunUpgrade::TriGunUpgrade()
 
 void TriGunUpgrade::activate(Player * player, World * world)
 {
-	TriGun * gun = new TriGun(*world);
-
-	player->setGun(gun);
-
 	markDelete();
 }
 

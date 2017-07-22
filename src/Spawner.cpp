@@ -12,8 +12,10 @@
 
 #include "LinearCurve.hpp"
 
-#include "SlowGun.hpp"
-#include "StandardGun.hpp"
+#include "GunBuilder.hpp"
+#include "Bullet.hpp"
+
+#include "Define.hpp"
 
 #include <fstream>
 
@@ -42,7 +44,22 @@ void Spawner::update(float delta)
 
 		enemy->setPath(spawnElement->getPath());
 
-		enemy->setGun(new SlowGun(m_world));
+		GunBuilder gunBuilder;
+
+		gunBuilder.setWorld(&m_world).setFireRate(1.0f).setPlayer(false);
+
+		gunBuilder.setFire([](World * world, Gun * gun)
+		{
+			float rotation = gun->getRotation() * (PI / 180.0f);
+
+			float x = cos(rotation);
+
+			float y = sin(rotation);
+
+			world->addEnemyBullet(new Bullet(gun->getPosition(), sf::Vector2f(x, y)));
+		});
+
+		enemy->setGun(dynamic_cast<Gun*>(gunBuilder.build()));
 
 		m_world.addEnemy(enemy);
 

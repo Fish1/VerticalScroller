@@ -5,6 +5,8 @@
 
 #include "World.hpp"
 
+#include <functional>
+
 class Gun : public GameObject
 {
 protected:
@@ -15,19 +17,16 @@ protected:
 
 	const float m_fireRate;
 
-	bool m_player = false;
+	const bool m_player = false;
+
+	std::function<void(World*, Gun*)> m_fire;
 
 public:
 
-	Gun(World & world, float fireRate) :
-		m_world(world), m_fireRate(fireRate)
+	Gun(World & world, float fireRate, bool player, std::function<void(World*, Gun*)> fire) :
+		m_world(world), m_fireRate(fireRate), m_player(player), m_fire(fire)
 	{
 		m_lastFire = m_fireRate;	
-	}
-
-	void markPlayer()
-	{
-		m_player = true;
 	}
 
 	void update(float delta)
@@ -35,7 +34,22 @@ public:
 		m_lastFire += delta;
 	}
 
-	virtual void fire() = 0;
+	bool canFire()
+	{
+		return m_lastFire > m_fireRate;
+	}
+
+	void fire()
+	{
+		if(m_lastFire < m_fireRate)
+		{
+			return;
+		}
+
+		m_lastFire = 0.0f;
+
+		m_fire(&m_world, this);
+	}
 };
 
 #endif
