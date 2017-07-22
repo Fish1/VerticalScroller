@@ -1,7 +1,0 @@
-/home/jacob/Programming/shooter/CMakeFiles/install/strip.dir
-/home/jacob/Programming/shooter/CMakeFiles/edit_cache.dir
-/home/jacob/Programming/shooter/CMakeFiles/app.dir
-/home/jacob/Programming/shooter/CMakeFiles/rebuild_cache.dir
-/home/jacob/Programming/shooter/CMakeFiles/list_install_components.dir
-/home/jacob/Programming/shooter/CMakeFiles/install/local.dir
-/home/jacob/Programming/shooter/CMakeFiles/install.dir
