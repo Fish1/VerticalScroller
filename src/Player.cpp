@@ -8,8 +8,6 @@
 
 #include "Define.hpp"
 
-#include <iostream>
-
 Player::Player()
 {
 	setTexture(TextureManager::instance().get("ship"));
@@ -17,8 +15,10 @@ Player::Player()
 	rotate(-90.0f);
 
 	setPosition(sf::Vector2f(720.0f / 2.0f, 720.0f - 100.0f));
-
-	if(!m_soundBuffer.loadFromFile("res/sound/galaga_shoot1.ogg")){
+  
+  m_sprite->setOrigin(m_sprite->getLocalBounds().width / 2.0f, m_sprite->getLocalBounds().height / 2.0f);
+  
+  if(!m_soundBuffer.loadFromFile("res/sound/galaga_shoot1.ogg")){
 		m_fireSoundLoaded = false;
 	}
 }
@@ -67,11 +67,6 @@ void Player::update(float delta)
 			m_gun->setRotation(getRotation());
 
 			m_gun->fire();
-		
-			if(m_fireSoundLoaded) {
-				m_fireSound.setBuffer(m_soundBuffer);
-				m_fireSound.play();
-			}
 		}
 	}
 }

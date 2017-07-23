@@ -2,6 +2,8 @@
 
 #include "Gun.hpp"
 
+#include <iostream>
+
 GunBuilder & GunBuilder::setPlayer(bool player)
 {
 	m_player = player;
@@ -30,9 +32,16 @@ GunBuilder & GunBuilder::setFire(std::function<void(World*, Gun*)> fire)
 	return *this;
 }
 
+GunBuilder & GunBuilder::setSound(std::string soundSrc)
+{
+	m_soundSrc = soundSrc;
+	
+	return *this;
+}
+
 GameObject * GunBuilder::build()
 {
-	Gun * gun = new Gun(*m_world, m_fireRate, m_player, m_fire);
+	Gun * gun = new Gun(*m_world, m_fireRate, m_player, m_fire, m_soundSrc);
 
 	return gun;
 }
