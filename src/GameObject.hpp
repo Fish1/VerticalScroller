@@ -2,6 +2,7 @@
 #define GAMEOBJECT_HPP
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 class GameObject : public sf::Drawable
 {
