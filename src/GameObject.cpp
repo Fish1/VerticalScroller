@@ -7,20 +7,21 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
-	if(m_sprite != nullptr)
-	{
-		delete m_sprite;
-
-		m_sprite = nullptr;
-	}
+	delete m_sprite;
 }
 
 void GameObject::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-	if(m_sprite != nullptr)
-	{
-		target.draw(*m_sprite);
-	}	
+	target.draw(*m_sprite);
+}
+
+void GameObject::setTexture(sf::Texture & texture)
+{
+	m_sprite->setTexture(texture, true);
+	
+	m_sprite->setOrigin(m_sprite->getLocalBounds().width / 2.0f, m_sprite->getLocalBounds().height / 2.0f);
+	
+	m_sprite->setScale(2.0f, 2.0f);
 }
 
 void GameObject::update(float delta)
@@ -38,48 +39,37 @@ bool GameObject::getDelete()
 	return m_delete;
 }
 
+void GameObject::move(sf::Vector2f move)
+{
+	m_sprite->move(move);
+}
+
 void GameObject::setPosition(sf::Vector2f position)
 {
-	if(m_sprite != nullptr)
-	{
-		m_sprite->setPosition(position);
-	}
+	m_sprite->setPosition(position);
 }
 
 sf::Vector2f GameObject::getPosition() const
 {
-	if(m_sprite != nullptr)
-	{
-		return m_sprite->getPosition();
-	}
+	return m_sprite->getPosition();
+}
 
-	return sf::Vector2f(0.0f, 0.0f);
+void GameObject::rotate(float rotation)
+{
+	m_sprite->rotate(rotation);
 }
 
 void GameObject::setRotation(float rotation)
 {
-	if(m_sprite != nullptr)
-	{
-		m_sprite->setRotation(rotation);
-	}
+	m_sprite->setRotation(rotation);
 }
 
 float GameObject::getRotation() const
 {
-	if(m_sprite != nullptr)
-	{
-		return m_sprite->getRotation();
-	}
-
-	return 0.0f;
+	return m_sprite->getRotation();
 }
 
 sf::FloatRect GameObject::getGlobalBounds() const
 {
-	if(m_sprite != nullptr)
-	{
-		return m_sprite->getGlobalBounds();
-	}
-
-	return sf::FloatRect();
+	return m_sprite->getGlobalBounds();
 }
