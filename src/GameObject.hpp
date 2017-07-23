@@ -7,6 +7,8 @@
 class GameObject : public sf::Drawable
 {
 private:
+	
+	sf::Sprite * m_sprite = nullptr;
 
 	bool m_delete = false;
 
@@ -14,7 +16,7 @@ private:
 
 protected:
 
-	sf::Sprite * m_sprite = nullptr;
+	void setTexture(sf::Texture & texture);
 
 public:
 
@@ -33,6 +35,8 @@ public:
 	void setPosition(sf::Vector2f position);
 
 	sf::Vector2f getPosition() const;
+
+	void rotate(float rotation);
 
 	void setRotation(float rotation);
 
