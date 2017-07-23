@@ -20,6 +20,8 @@ private:
 	World * m_world;
 
 	std::function<void(World*, Gun*)> m_fire;
+	
+	std::string m_soundSrc;
 
 public:
 
@@ -30,6 +32,8 @@ public:
 	GunBuilder & setWorld(World * world);
 
 	GunBuilder & setFire(std::function<void(World*, Gun*)> fire);
+	
+	GunBuilder & setSound(std::string soundSrc);
 
 	GameObject * build();
 

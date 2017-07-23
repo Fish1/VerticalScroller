@@ -19,10 +19,6 @@ private:
 
 	const float m_speed = 400.0f;
 
-	sf::SoundBuffer m_soundBuffer;
-	sf::Sound m_fireSound;
-	bool m_fireSoundLoaded = true;
-
 public:
 
 	Player();
