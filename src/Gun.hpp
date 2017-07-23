@@ -32,10 +32,13 @@ public:
 		m_world(world), m_fireRate(fireRate), m_player(player), m_fire(fire)
 	{
 		m_lastFire = m_fireRate;
-		
-		if(!soundSrc.empty() && !m_soundBuffer.loadFromFile(soundSrc)){
+
+		if(soundSrc.empty()){
 			m_fireSoundLoaded = false;
 		}
+		else if(!m_soundBuffer.loadFromFile(soundSrc)){
+			m_fireSoundLoaded = false;
+		}	
 	}
 
 	void update(float delta)
