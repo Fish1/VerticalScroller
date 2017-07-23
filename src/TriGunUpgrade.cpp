@@ -6,7 +6,7 @@
 
 TriGunUpgrade::TriGunUpgrade()
 {
-	m_sprite->setTexture(TextureManager::instance().get("triupgrade"));
+	setTexture(TextureManager::instance().get("triupgrade"));
 }
 
 void TriGunUpgrade::activate(Player * player, World * world)

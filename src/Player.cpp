@@ -12,16 +12,12 @@
 
 Player::Player()
 {
-	m_sprite = new sf::Sprite(TextureManager::instance().get("ship"));
-
-	m_sprite->rotate(-90.0f);
-
-	m_sprite->setPosition(720.0f / 2.0f, 720.0f - 100.0f);
-
-	m_sprite->setScale(2.0f, 2.0f);
-
-	m_sprite->setOrigin(m_sprite->getLocalBounds().width / 2.0f, m_sprite->getLocalBounds().height / 2.0f);
+	setTexture(TextureManager::instance().get("ship"));
 	
+	rotate(-90.0f);
+
+	setPosition(sf::Vector2f(720.0f / 2.0f, 720.0f - 100.0f));
+
 	if(!m_soundBuffer.loadFromFile("res/sound/galaga_shoot1.ogg")){
 		m_fireSoundLoaded = false;
 	}
@@ -57,7 +53,7 @@ void Player::update(float delta)
 
 	if(mag != 0.0f)
 	{
-		m_sprite->move(direction * 450.0f * delta);
+		move(direction * 450.0f * delta);
 	}
 
 	if(m_gun != nullptr)

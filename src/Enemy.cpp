@@ -21,11 +21,7 @@
 Enemy::Enemy(float health, float speed, std::string texture) :
 	m_health(health), m_speed(speed)
 {
-	m_sprite = new sf::Sprite(TextureManager::instance().get(texture));
-
-	m_sprite->setScale(2.0f, 2.0f);
-	
-	m_sprite->setOrigin(m_sprite->getLocalBounds().width / 2.0f, m_sprite->getLocalBounds().height / 2.0f);
+	setTexture(TextureManager::instance().get(texture));
 }
 
 Enemy::~Enemy()
@@ -42,18 +38,18 @@ void Enemy::setPath(Path * path)
 {
 	m_path = path;
 
-	m_sprite->setPosition(m_path->getWaypoint().x, m_path->getWaypoint().y);
+	setPosition(sf::Vector2f(m_path->getWaypoint().x, m_path->getWaypoint().y));
 }
 
 void Enemy::update(float delta)
 {
 	if(m_path != nullptr)
 	{
-		m_path->update(m_sprite->getPosition());
+		m_path->update(getPosition());
 		
 		sf::Vector2f waypoint = m_path->getWaypoint();
 
-		sf::Vector2f direction = waypoint - m_sprite->getPosition();
+		sf::Vector2f direction = waypoint - getPosition();
 
 		float mag = sqrt((direction.x * direction.x) + (direction.y * direction.y));
 
@@ -65,7 +61,7 @@ void Enemy::update(float delta)
 
 			direction *= m_speed * delta;
 
-			m_sprite->move(direction);
+			move(direction);
 		}
 
 		// Rotate the GameObject towards the next waypoint
@@ -74,7 +70,7 @@ void Enemy::update(float delta)
 
 		rotation *= 180.0f / PI;
 
-		m_sprite->setRotation(rotation);
+		setRotation(rotation);
 	}
 	
 	if(m_gun != nullptr)
