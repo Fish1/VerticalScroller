@@ -4,6 +4,8 @@
 
 #include "StateManager.hpp"
 
+#include "MouseManager.hpp"
+
 #include "TextureManager.hpp"
 
 void loadTextures();
@@ -22,6 +24,8 @@ int main(void)
 
 	StateManager stateManager;
 
+	MouseManager::instance()->setWindow(&window);
+
 	while(window.isOpen())
 	{
 		sf::Event event;
@@ -33,6 +37,10 @@ int main(void)
 				window.close();
 			}
 		}
+
+		sf::Vector2i a = MouseManager::instance()->getPosition();
+
+		std::cout << a.x << " , " << a.y << std::endl;
 
 		stateManager.update(window);
 
