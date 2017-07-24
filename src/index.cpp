@@ -38,10 +38,6 @@ int main(void)
 			}
 		}
 
-		sf::Vector2i a = MouseManager::instance()->getPosition();
-
-		std::cout << a.x << " , " << a.y << std::endl;
-
 		stateManager.update(window);
 
 		window.display();

@@ -2,6 +2,8 @@
 
 #include "Define.hpp"
 
+#include "MouseManager.hpp"
+
 #include "TextureManager.hpp"
 
 #include "Gun.hpp"
@@ -19,27 +21,9 @@ Player::Player()
 
 void Player::update(float delta)
 {
-	sf::Vector2f direction(0.0f, 0.0f);
+	sf::Vector2i mouse = MouseManager::instance()->getPosition();
 
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-	{
-		direction += sf::Vector2f(0.0f, -1.0f);	
-	}
-	
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-	{
-		direction += sf::Vector2f(0.0f, 1.0f);	
-	}
-	
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-	{
-		direction += sf::Vector2f(-1.0f, 0.0f);
-	}
-	
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-	{
-		direction += sf::Vector2f(1.0f, 0.0f);
-	}
+	sf::Vector2f direction = sf::Vector2f(mouse.x, mouse.y) - getPosition();
 
 	float mag = sqrt((direction.x * direction.x) + (direction.y * direction.y));
 
@@ -47,14 +31,14 @@ void Player::update(float delta)
 
 	if(mag != 0.0f)
 	{
-		move(direction * 450.0f * delta);
+		move(direction * 400.0f * delta);
 	}
 
 	if(m_gun != nullptr)
 	{
 		m_gun->update(delta);
-		
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	
+		if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 		{
 			m_gun->setPosition(getPosition());
 
