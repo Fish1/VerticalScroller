@@ -117,7 +117,8 @@ bool RotationRectangle::intersectsAxis(sf::Vector2f axis, RotationRectangle & ot
 	otherX.push_back(other_c.x);
 	otherX.push_back(other_d.x);
 
-	std::sort(otherX.begin(), otherX.end());
+	float otherMaxX = *std::max_element(otherX.begin(), otherX.end());
+	float otherMinX = *std::min_element(otherX.begin(), otherX.end());
 
 	std::vector<float> thisX;
 
@@ -126,26 +127,19 @@ bool RotationRectangle::intersectsAxis(sf::Vector2f axis, RotationRectangle & ot
 	thisX.push_back(this_c.x);
 	thisX.push_back(this_d.x);
 
-	std::sort(thisX.begin(), thisX.end());
+	float thisMaxX = *std::max_element(thisX.begin(), thisX.end());
+	float thisMinX = *std::min_element(thisX.begin(), thisX.end());
 
-	bool intersectX = false;
+	bool intersectX = true;
 
-	/*
-	std::cout << "EnemyX: " << *thisX.begin() << " - " << *(thisX.end() - 1) << std::endl;
-	std::cout << "PlayerX: " << *otherX.begin() << " - " << *(otherX.end() - 1) << std::endl;
-	*/
-
-	if(*thisX.begin() <= *(otherX.end() - 1) && *thisX.begin() >= *otherX.begin())
+	if(thisMinX > otherMaxX || thisMaxX < otherMinX)
 	{
-		intersectX = true;
+		intersectX = false;
 	}
-	else if(*(thisX.end() - 1) <= *(otherX.end() - 1) && *(thisX.end() - 1) >= *otherX.begin())
+
+	if(intersectX == false)
 	{
-		intersectX = true;
-	}
-	else if(*(thisX.end() - 1) >= *(otherX.end() - 1) && *thisX.begin() <= *otherX.begin())
-	{
-		intersectX = true;
+		return false;
 	}
 	
 	std::vector<float> otherY;
@@ -155,7 +149,8 @@ bool RotationRectangle::intersectsAxis(sf::Vector2f axis, RotationRectangle & ot
 	otherY.push_back(other_c.y);
 	otherY.push_back(other_d.y);
 
-	std::sort(otherY.begin(), otherY.end());
+	float otherMaxY = *std::max_element(otherY.begin(), otherY.end());
+	float otherMinY = *std::min_element(otherY.begin(), otherY.end());
 
 	std::vector<float> thisY;
 
@@ -164,28 +159,16 @@ bool RotationRectangle::intersectsAxis(sf::Vector2f axis, RotationRectangle & ot
 	thisY.push_back(this_c.y);
 	thisY.push_back(this_d.y);
 
-	std::sort(thisY.begin(), thisY.end());
+	float thisMaxY = *std::max_element(thisY.begin(), thisY.end());
+	float thisMinY = *std::min_element(thisY.begin(), thisY.end());
 
-	bool intersectY = false;
+	bool intersectY = true;
 	
-	/*
-	std::cout << "EnemyY: " << *thisY.begin() << " - " << *(thisY.end() - 1) << std::endl;
-	std::cout << "PlayerY: " << *otherY.begin() << " - " << *(otherY.end() - 1) << std::endl;
-	*/
+	if(thisMinY > otherMaxY || thisMaxY < otherMinY)
+	{
+		intersectY = false;
+	}
 
-	if(*thisY.begin() <= *(otherY.end() - 1) && *thisY.begin() >= *otherY.begin())
-	{
-		intersectY = true;
-	}
-	else if(*(thisY.end() - 1) <= *(otherY.end() - 1) && *(thisY.end() - 1) >= *otherY.begin())
-	{
-		intersectY = true;
-	}
-	else if(*(thisY.end() - 1) >= *(otherY.end() - 1) && *thisY.begin() <= *otherY.begin())
-	{
-		intersectY = true;
-	}
-	
 	return intersectY && intersectX;
 }
 
@@ -207,12 +190,8 @@ bool RotationRectangle::intersects(RotationRectangle & other)
 
 	sf::Vector2f axis_d = other.m_b - other.m_c;
 
-	bool a = intersectsAxis(axis_a, other);
-	bool b = intersectsAxis(axis_b, other);
-	bool c = intersectsAxis(axis_c, other); 
-	bool d = intersectsAxis(axis_d, other);
-
-	//std::cout << a << b << c << d << std::endl;
-
-	return a && b && c && d;
+	return intersectsAxis(axis_a, other) &&
+		intersectsAxis(axis_b, other) &&
+		intersectsAxis(axis_c, other) &&
+		intersectsAxis(axis_d, other);
 }
