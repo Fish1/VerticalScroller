@@ -18,14 +18,14 @@ Player::Player()
 
 	setPosition(sf::Vector2f(720.0f / 2.0f, 720.0f - 100.0f));
 
-	enableRotationRectangle();
+	enableCollision();
 
 	setDebugColor(sf::Color::Green);
 }
 
 void Player::update(float delta)
 {
-	updateRotationRectangle();
+	updateCollision();
 
 	sf::Vector2i mouse = MouseManager::instance()->getPosition();
 

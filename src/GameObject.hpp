@@ -1,7 +1,7 @@
 #ifndef GAMEOBJECT_HPP
 #define GAMEOBJECT_HPP
 
-#include "RotationRectangle.hpp"
+#include "Collision.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -12,7 +12,7 @@ private:
 	
 	sf::Sprite * m_sprite = nullptr;
 
-	RotationRectangle * m_rectangle = nullptr;
+	Collision * m_collision = nullptr;
 
 	bool m_delete = false;
 
@@ -22,7 +22,9 @@ protected:
 
 	void setTexture(sf::Texture & texture);
 
-	void enableRotationRectangle();
+	void enableCollision();
+	
+	void updateCollision();
 
 public:
 
@@ -33,8 +35,6 @@ public:
 	virtual void update(float delta);
 
 	void setDebugColor(sf::Color color);
-
-	void updateRotationRectangle();
 
 	void markDelete();
 

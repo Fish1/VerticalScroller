@@ -1,5 +1,5 @@
-#ifndef ROTATIONRECTANGLE_HPP
-#define ROTATIONRECTANGLE_HPP
+#ifndef COLLISION_HPP 
+#define COLLISION_HPP 
 
 #include <SFML/Graphics.hpp>
 
@@ -7,7 +7,7 @@
 
 class GameObject;
 
-class RotationRectangle : public sf::Drawable
+class Collision : public sf::Drawable
 {
 private:
 
@@ -26,19 +26,19 @@ private:
 
 	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 
-	bool intersectsAxis(sf::Vector2f axis, RotationRectangle & other);
+	bool intersectsAxis(sf::Vector2f axis, Collision & other);
 
 public:
 
-	RotationRectangle(GameObject * gameObject);
+	Collision(GameObject * gameObject);
 
-	~RotationRectangle();
+	~Collision();
 
 	void setCornerColor(sf::Color color);
 
-	void update(float delta);
+	void update();
 
-	bool intersects(RotationRectangle & other);
+	bool intersects(Collision & other);
 };
 
 #endif

@@ -12,7 +12,7 @@ Bullet::Bullet(sf::Vector2f position, sf::Vector2f direction)
 
 	setPosition(position);
 
-	enableRotationRectangle();
+	enableCollision();
 
 	setDebugColor(sf::Color::Blue);
 
@@ -27,5 +27,5 @@ void Bullet::update(float delta)
 {
 	move(sf::Vector2f(m_direction.x, m_direction.y) * delta * m_speed);
 
-	updateRotationRectangle();
+	updateCollision();
 }

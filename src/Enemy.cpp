@@ -22,7 +22,7 @@ Enemy::Enemy(float health, float speed, std::string texture) :
 {
 	setTexture(TextureManager::instance().get(texture));
 
-	enableRotationRectangle();
+	enableCollision();
 
 	setDebugColor(sf::Color::Red);
 }
@@ -46,7 +46,7 @@ void Enemy::setPath(Path * path)
 
 void Enemy::update(float delta)
 {
-	updateRotationRectangle();
+	updateCollision();
 
 	if(m_path != nullptr)
 	{

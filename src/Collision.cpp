@@ -1,4 +1,4 @@
-#include "RotationRectangle.hpp"
+#include "Collision.hpp"
 
 #include "GameObject.hpp"
 
@@ -10,7 +10,7 @@
 
 #include <iostream>
 
-RotationRectangle::RotationRectangle(GameObject * gameObject)
+Collision::Collision(GameObject * gameObject)
 {
 	m_gameObject = gameObject;
 
@@ -21,12 +21,12 @@ RotationRectangle::RotationRectangle(GameObject * gameObject)
 	m_shape->setFillColor(sf::Color::Green);
 }
 
-RotationRectangle::~RotationRectangle()
+Collision::~Collision()
 {
 	delete m_shape;
 }
 
-void RotationRectangle::calculatePoints()
+void Collision::calculatePoints()
 {
 	sf::FloatRect bounds = m_gameObject->getLocalBounds();
 
@@ -55,7 +55,7 @@ void RotationRectangle::calculatePoints()
 	m_d = m_gameObject->getPosition() + sf::Vector2f(x, y) * radius;
 };
 
-void RotationRectangle::draw(sf::RenderTarget & target, sf::RenderStates states) const
+void Collision::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	m_shape->setPosition(m_a);
 	target.draw(*m_shape);
@@ -76,19 +76,19 @@ void RotationRectangle::draw(sf::RenderTarget & target, sf::RenderStates states)
 	}
 }
 
-void RotationRectangle::setCornerColor(sf::Color color)
+void Collision::setCornerColor(sf::Color color)
 {
 	m_shape->setFillColor(color);
 }
 
-void RotationRectangle::update(float delta)
+void Collision::update()
 {
 	m_debugs.clear();
 
 	calculatePoints();
 }
 
-bool RotationRectangle::intersectsAxis(sf::Vector2f axis, RotationRectangle & other)
+bool Collision::intersectsAxis(sf::Vector2f axis, Collision & other)
 {
 	sf::Vector2f other_a = Math::projectPoint(other.m_a, axis);
 	sf::Vector2f other_b = Math::projectPoint(other.m_b, axis);
@@ -172,7 +172,7 @@ bool RotationRectangle::intersectsAxis(sf::Vector2f axis, RotationRectangle & ot
 	return intersectY && intersectX;
 }
 
-bool RotationRectangle::intersects(RotationRectangle & other)
+bool Collision::intersects(Collision & other)
 {
 	// project to yaxis of this
 	
