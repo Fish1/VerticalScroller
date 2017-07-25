@@ -8,8 +8,6 @@
 
 #include "TextureManager.hpp"
 
-void loadTextures();
-
 int main(void)
 {
 	sf::RenderWindow window(sf::VideoMode(720, 720), "Agalag", sf::Style::Close);
@@ -39,7 +37,7 @@ int main(void)
 		}
 
 		stateManager.update(window);
-
+		
 		window.display();
 	}
 }

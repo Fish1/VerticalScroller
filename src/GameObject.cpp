@@ -8,11 +8,21 @@ GameObject::GameObject()
 GameObject::~GameObject()
 {
 	delete m_sprite;
+
+	if(m_rectangle != nullptr)
+	{
+		delete m_rectangle;
+	}
 }
 
 void GameObject::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(*m_sprite);
+
+	if(m_rectangle != nullptr)
+	{
+		target.draw(*m_rectangle);
+	}
 }
 
 void GameObject::setTexture(sf::Texture & texture)
@@ -22,6 +32,27 @@ void GameObject::setTexture(sf::Texture & texture)
 	m_sprite->setOrigin(m_sprite->getLocalBounds().width / 2.0f, m_sprite->getLocalBounds().height / 2.0f);
 	
 	m_sprite->setScale(2.0f, 2.0f);
+}
+
+void GameObject::enableRotationRectangle()
+{
+	if(m_rectangle == nullptr)
+	{
+		m_rectangle = new RotationRectangle(this);
+	}
+}
+
+void GameObject::setDebugColor(sf::Color color)
+{
+	m_rectangle->setCornerColor(color);
+}
+
+void GameObject::updateRotationRectangle()
+{
+	if(m_rectangle != nullptr)
+	{
+		m_rectangle->update(0.0f);
+	}
 }
 
 void GameObject::update(float delta)
@@ -72,4 +103,14 @@ float GameObject::getRotation() const
 sf::FloatRect GameObject::getGlobalBounds() const
 {
 	return m_sprite->getGlobalBounds();
+}
+
+sf::FloatRect GameObject::getLocalBounds() const
+{
+	return m_sprite->getLocalBounds();
+}
+
+bool GameObject::intersects(GameObject & other) const
+{
+	return m_rectangle->intersects(*other.m_rectangle);
 }

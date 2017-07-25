@@ -17,10 +17,14 @@ Player::Player()
 	rotate(-90.0f);
 
 	setPosition(sf::Vector2f(720.0f / 2.0f, 720.0f - 100.0f));
+
+	enableRotationRectangle();
 }
 
 void Player::update(float delta)
 {
+	updateRotationRectangle();
+
 	sf::Vector2i mouse = MouseManager::instance()->getPosition();
 
 	sf::Vector2f direction = sf::Vector2f(mouse.x, mouse.y) - getPosition();

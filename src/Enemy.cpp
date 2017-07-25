@@ -16,12 +16,13 @@
 
 #include "Define.hpp"
 
-#include "GunBuilder.hpp"
-
+#include "GunBuilder.hpp" 
 Enemy::Enemy(float health, float speed, std::string texture) :
 	m_health(health), m_speed(speed)
 {
 	setTexture(TextureManager::instance().get(texture));
+
+	enableRotationRectangle();
 }
 
 Enemy::~Enemy()
@@ -43,6 +44,8 @@ void Enemy::setPath(Path * path)
 
 void Enemy::update(float delta)
 {
+	updateRotationRectangle();
+
 	if(m_path != nullptr)
 	{
 		m_path->update(getPosition());

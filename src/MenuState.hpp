@@ -7,9 +7,19 @@
 
 #include "Enemy.hpp"
 
+#include "EnemyFactory.hpp"
+
 class MenuState : public State
 {
 private:
+
+	EnemyFactory ef;
+	
+	Player * p;
+
+	Enemy * e;
+
+	sf::Shape * s;
 
 	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 
