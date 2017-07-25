@@ -37,7 +37,7 @@ void Player::update(float delta)
 
 	if(mag > 3.0f)
 	{
-		move(direction * 400.0f * delta);
+		move(direction * 450.0f * delta);
 	}
 
 	if(m_gun != nullptr)

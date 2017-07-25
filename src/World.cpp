@@ -44,7 +44,7 @@ World::World()
 
 	GunBuilder gunBuilder;
 
-	gunBuilder.setWorld(this).setFireRate(0.2f).setPlayer(true).setSound("res/sound/galaga_shoot1.ogg");
+	gunBuilder.setWorld(this).setFireRate(0.3f).setPlayer(true).setSound("res/sound/galaga_shoot1.ogg");
 
 	gunBuilder.setFire([](World * world, Gun * gun)
 	{
