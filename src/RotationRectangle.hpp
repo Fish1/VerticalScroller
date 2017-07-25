@@ -18,8 +18,6 @@ private:
 
 	std::vector<sf::Vector2f> m_debugs;
 
-	sf::Color m_cornerColor;
-
 	sf::Shape * m_shape;
 
 	GameObject * m_gameObject;

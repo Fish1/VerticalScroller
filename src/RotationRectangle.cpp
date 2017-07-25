@@ -57,8 +57,6 @@ void RotationRectangle::calculatePoints()
 
 void RotationRectangle::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-	m_shape->setFillColor(m_cornerColor);
-	
 	m_shape->setPosition(m_a);
 	target.draw(*m_shape);
 
@@ -71,8 +69,6 @@ void RotationRectangle::draw(sf::RenderTarget & target, sf::RenderStates states)
 	m_shape->setPosition(m_d);
 	target.draw(*m_shape);
 
-	m_shape->setFillColor(sf::Color::Red);
-
 	for(sf::Vector2f p : m_debugs)
 	{
 		m_shape->setPosition(p);
@@ -82,7 +78,7 @@ void RotationRectangle::draw(sf::RenderTarget & target, sf::RenderStates states)
 
 void RotationRectangle::setCornerColor(sf::Color color)
 {
-	m_cornerColor = color;
+	m_shape->setFillColor(color);
 }
 
 void RotationRectangle::update(float delta)

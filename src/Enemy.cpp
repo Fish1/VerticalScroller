@@ -23,6 +23,8 @@ Enemy::Enemy(float health, float speed, std::string texture) :
 	setTexture(TextureManager::instance().get(texture));
 
 	enableRotationRectangle();
+
+	setDebugColor(sf::Color::Red);
 }
 
 Enemy::~Enemy()

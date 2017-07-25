@@ -17,7 +17,9 @@ void StateManager::update(sf::RenderTarget & target)
 
 	m_clock.restart();
 
-	m_state->update(time.asSeconds());
+	//m_state->update(time.asSeconds());
+
+	m_state->update(0.01f < time.asSeconds() ? 0.01f : time.asSeconds());
 	
 	if(m_state != m_state->getNextState())
 	{

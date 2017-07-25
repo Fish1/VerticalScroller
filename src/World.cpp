@@ -36,9 +36,11 @@ World::World()
 
 	m_levelDisplay = new LevelDisplay(m_spawner->getLevelName());
 
+	/*
 	Upgrade * upgrade = new TriGunUpgrade;
 
 	m_upgrades.push_back(upgrade);
+	*/
 
 	GunBuilder gunBuilder;
 
@@ -171,7 +173,6 @@ void World::update(float delta)
 
 void World::updateCollision()
 {
-
 	for(GameObject * upgrade : m_upgrades)
 	{
 		if(m_player->getGlobalBounds().intersects(upgrade->getGlobalBounds()))
@@ -184,7 +185,13 @@ void World::updateCollision()
 
 	for(GameObject * bullet : m_enemyBullets)
 	{
-		if(m_player->getGlobalBounds().intersects(bullet->getGlobalBounds()))
+		if(bullet->getPosition().y > 720.0f || bullet->getPosition().y < 0.0f ||
+				bullet->getPosition().x > 720.0f || bullet->getPosition().x < 0.0f)
+		{
+			bullet->markDelete();
+		}
+
+		if(m_player->intersects(*bullet))
 		{
 			dynamic_cast<Player*>(m_player)->takeDamage(10.0f);
 
@@ -199,19 +206,25 @@ void World::updateCollision()
 			enemy->markDelete();
 		}
 
-		if(enemy->getGlobalBounds().intersects(m_player->getGlobalBounds()))
+		if(m_player->intersects(*enemy))
 		{
 			dynamic_cast<Player*>(m_player)->takeDamage(10.0f);
 		}
 
 		for(GameObject * bullet : m_playerBullets)
 		{
-			if(enemy->getGlobalBounds().intersects(bullet->getGlobalBounds()))
+			if(bullet->getPosition().y > 720.0f || bullet->getPosition().y < 0.0f ||
+					bullet->getPosition().x > 720.0f || bullet->getPosition().x < 0.0f)
+			{
+				bullet->markDelete();
+			}
+
+			if(enemy->intersects(*bullet))
 			{
 				Enemy * enemyCast = dynamic_cast<Enemy*>(enemy);
 
 				enemyCast->takeDamage(1.0f);
-			
+				
 				if(enemyCast->getHealth() == 0)
 				{
 					enemy->markDelete();
@@ -246,6 +259,20 @@ void World::updateDeletes()
 		if(bullet->getDelete())
 		{
 			m_playerBullets.erase(m_playerBullets.begin() + index);
+
+			delete bullet;
+
+			--index;
+		}
+	}
+	
+	for(unsigned int index = 0; index < m_enemyBullets.size(); ++index)
+	{
+		GameObject * bullet = m_enemyBullets.at(index);
+
+		if(bullet->getDelete())
+		{
+			m_enemyBullets.erase(m_enemyBullets.begin() + index);
 
 			delete bullet;
 

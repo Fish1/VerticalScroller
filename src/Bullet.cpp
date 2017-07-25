@@ -12,6 +12,10 @@ Bullet::Bullet(sf::Vector2f position, sf::Vector2f direction)
 
 	setPosition(position);
 
+	enableRotationRectangle();
+
+	setDebugColor(sf::Color::Blue);
+
 	float mag = sqrt((direction.x * direction.x) + (direction.y * direction.y));
 
 	direction /= mag;
@@ -22,4 +26,6 @@ Bullet::Bullet(sf::Vector2f position, sf::Vector2f direction)
 void Bullet::update(float delta)
 {
 	move(sf::Vector2f(m_direction.x, m_direction.y) * delta * m_speed);
+
+	updateRotationRectangle();
 }

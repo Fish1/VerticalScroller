@@ -19,6 +19,8 @@ Player::Player()
 	setPosition(sf::Vector2f(720.0f / 2.0f, 720.0f - 100.0f));
 
 	enableRotationRectangle();
+
+	setDebugColor(sf::Color::Green);
 }
 
 void Player::update(float delta)
