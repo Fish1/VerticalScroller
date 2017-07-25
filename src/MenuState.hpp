@@ -3,9 +3,15 @@
 
 #include "State.hpp"
 
+#include <vector>
+
+class UIElement;
+
 class MenuState : public State
 {
 private:
+
+	UIElement * m_startButton;
 
 	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 
