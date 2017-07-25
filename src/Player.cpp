@@ -35,7 +35,7 @@ void Player::update(float delta)
 
 	direction /= mag;
 
-	if(mag != 0.0f)
+	if(mag > 3.0f)
 	{
 		move(direction * 400.0f * delta);
 	}
