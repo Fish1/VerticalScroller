@@ -15,7 +15,7 @@ public:
 
 	virtual void update(float delta);
 
-	virtual void activate(Player * player, World * world) = 0;
+	virtual void activate(Player & player, World & world) = 0;
 
 };
 

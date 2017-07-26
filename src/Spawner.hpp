@@ -5,7 +5,7 @@
 
 #include <string>
 
-#include "World.hpp"
+class World;
 
 class GameObject;
 

@@ -7,7 +7,7 @@ class Bullet : public GameObject
 {
 private:
 
-	const float m_speed = 400.0f;
+	const float m_speed = 500.0f;
 
 	sf::Vector2f m_direction;
 

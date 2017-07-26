@@ -3,9 +3,13 @@
 
 #include "State.hpp"
 
+class UIElement;
+
 class GameOverState : public State
 {
 private:
+
+	UIElement * m_retryButton;
 
 	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 

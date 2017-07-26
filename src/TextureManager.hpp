@@ -3,8 +3,7 @@
 
 #include <map>
 
-#include <string>
-
+#include <string> 
 namespace sf
 {
 	class Texture;
@@ -45,6 +44,8 @@ public:
 	 */
 
 	sf::Texture & get(std::string key);
+
+	void cleanUp();
 };
 
 #endif

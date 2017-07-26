@@ -46,7 +46,7 @@ void Spawner::update(float delta)
 
 		GunBuilder gunBuilder;
 
-		gunBuilder.setWorld(&m_world).setFireRate(1.0f).setPlayer(false);
+		gunBuilder.setWorld(m_world).setFireRate(1.0f).setPlayer(false);
 
 		gunBuilder.setFire([](World * world, Gun * gun)
 		{

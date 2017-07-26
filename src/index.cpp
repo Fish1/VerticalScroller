@@ -8,6 +8,8 @@
 
 #include "TextureManager.hpp"
 
+#include "SoundBufferManager.hpp"
+
 int main(void)
 {
 	sf::RenderWindow window(sf::VideoMode(720, 720), "Agalag", sf::Style::Close);
@@ -20,7 +22,13 @@ int main(void)
 	
 	std::cout << std::endl;
 
-	StateManager stateManager;
+	std::cout << "Loading Sounds..." << std::endl;
+
+	SoundBufferManager::instance().loadFromFile("galaga_shoot1", "res/sound/galaga_shoot1.ogg");
+
+	std::cout << std::endl;
+
+	StateManager * stateManager = new StateManager();
 
 	MouseManager::instance()->setWindow(&window);
 
@@ -36,8 +44,16 @@ int main(void)
 			}
 		}
 
-		stateManager.update(window);
+		stateManager->update(window);
 		
 		window.display();
 	}
+
+	std::cout << std::endl;
+
+	std::cout << "Good-Bye!" << std::endl;
+
+	TextureManager::instance().cleanUp();
+
+	SoundBufferManager::instance().cleanUp();
 }

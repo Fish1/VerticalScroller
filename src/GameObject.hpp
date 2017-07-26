@@ -4,6 +4,7 @@
 #include "Collision.hpp"
 
 #include <SFML/Graphics.hpp>
+
 #include <SFML/Audio.hpp>
 
 class GameObject : public sf::Drawable

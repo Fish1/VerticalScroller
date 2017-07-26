@@ -39,6 +39,10 @@ private:
 
 	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 
+	void updateGameObjects(float delta);
+
+	void updateSpawner(float delta);
+
 	void updateCollision();
 
 	void updateDeletes();
@@ -51,7 +55,7 @@ public:
 
 	void update(float delta);
 
-	const Player * getPlayer();
+	const Player & getPlayer();
 
 	void addEnemy(Enemy * enemy);
 

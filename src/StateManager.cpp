@@ -11,6 +11,11 @@ StateManager::StateManager()
 	std::cout << " -- " << m_state << std::endl;
 }
 
+StateManager::~StateManager()
+{
+	delete m_state;
+}
+
 void StateManager::update(sf::RenderTarget & target)
 {
 	sf::Time time = m_clock.getElapsedTime();

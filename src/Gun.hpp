@@ -5,7 +5,10 @@
 
 #include "World.hpp"
 
+#include "SoundBufferManager.hpp"
+
 #include <functional>
+
 #include <iostream>
 
 class Gun : public GameObject
@@ -22,9 +25,7 @@ protected:
 
 	std::function<void(World*, Gun*)> m_fire;
 	
-	sf::SoundBuffer m_soundBuffer;
 	sf::Sound m_fireSound;
-	bool m_fireSoundLoaded = true;	
 
 public:
 
@@ -33,12 +34,11 @@ public:
 	{
 		m_lastFire = m_fireRate;
 
-		if(soundSrc.empty()){
-			m_fireSoundLoaded = false;
-		}
-		else if(!m_soundBuffer.loadFromFile(soundSrc)){
-			m_fireSoundLoaded = false;
-		}	
+		m_fireSound.setBuffer(SoundBufferManager::instance().get("galaga_shoot1"));
+
+		m_fireSound.setVolume(10.0f);
+
+		m_fireSound.setPitch(0.6f);
 	}
 
 	void update(float delta)
@@ -62,10 +62,7 @@ public:
 
 		m_fire(&m_world, this);
 		
-		if(m_fireSoundLoaded) {
-			m_fireSound.setBuffer(m_soundBuffer);
-			m_fireSound.play();
-		}
+		m_fireSound.play();
 	}
 };
 

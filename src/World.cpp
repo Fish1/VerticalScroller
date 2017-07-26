@@ -36,15 +36,14 @@ World::World()
 
 	m_levelDisplay = new LevelDisplay(m_spawner->getLevelName());
 
-	/*
 	Upgrade * upgrade = new TriGunUpgrade;
+	upgrade->setPosition(sf::Vector2f(720.0f / 2.0f, 0.0f));
 
 	m_upgrades.push_back(upgrade);
-	*/
 
 	GunBuilder gunBuilder;
 
-	gunBuilder.setWorld(this).setFireRate(0.3f).setPlayer(true).setSound("res/sound/galaga_shoot1.ogg");
+	gunBuilder.setWorld(*this).setFireRate(0.3f).setPlayer(true).setSound("res/sound/galaga_shoot1.ogg");
 
 	gunBuilder.setFire([](World * world, Gun * gun)
 	{
@@ -62,6 +61,8 @@ World::World()
 
 World::~World()
 {
+	delete m_levelDisplay;
+
 	delete m_player;
 
 	delete m_spawner;
@@ -80,11 +81,16 @@ World::~World()
 	{
 		delete bullet;
 	}
+
+	for(GameObject * upgrade : m_upgrades)
+	{
+		delete upgrade;
+	}
 }
 
-const Player * World::getPlayer()
+const Player & World::getPlayer()
 {
-	return dynamic_cast<Player*>(m_player);
+	return *dynamic_cast<Player*>(m_player);
 }
 
 void World::addEnemy(Enemy * enemy)
@@ -131,9 +137,18 @@ void World::draw(sf::RenderTarget & target, sf::RenderStates states) const
 
 void World::update(float delta)
 {
-	m_levelDisplay->update(delta);
+	updateSpawner(delta);
 
-	m_spawner->update(delta);
+	updateGameObjects(delta);
+
+	updateCollision();
+
+	updateDeletes();
+}
+
+void World::updateGameObjects(float delta)
+{
+	m_levelDisplay->update(delta);
 
 	m_player->update(delta);
 
@@ -156,10 +171,11 @@ void World::update(float delta)
 	{
 		upgrade->update(delta);
 	}
+}
 
-	updateCollision();
-
-	updateDeletes();
+void World::updateSpawner(float delta)
+{
+	m_spawner->update(delta);
 
 	if(m_enemies.size() == 0 && m_spawner->empty())
 	{
@@ -175,11 +191,11 @@ void World::updateCollision()
 {
 	for(GameObject * upgrade : m_upgrades)
 	{
-		if(m_player->getGlobalBounds().intersects(upgrade->getGlobalBounds()))
+		if(upgrade->intersects(*m_player))
 		{
 			Player * player = dynamic_cast<Player*>(m_player);
 
-			dynamic_cast<Upgrade*>(upgrade)->activate(player, this);
+			dynamic_cast<Upgrade*>(upgrade)->activate(*player, *this);
 		}
 	}
 
@@ -191,7 +207,7 @@ void World::updateCollision()
 			bullet->markDelete();
 		}
 
-		if(m_player->intersects(*bullet))
+		if(bullet->intersects(*m_player))
 		{
 			dynamic_cast<Player*>(m_player)->takeDamage(10.0f);
 
@@ -206,7 +222,7 @@ void World::updateCollision()
 			enemy->markDelete();
 		}
 
-		if(m_player->intersects(*enemy))
+		if(enemy->intersects(*m_player))
 		{
 			dynamic_cast<Player*>(m_player)->takeDamage(10.0f);
 		}

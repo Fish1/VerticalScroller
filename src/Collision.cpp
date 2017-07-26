@@ -10,75 +10,79 @@
 
 #include <iostream>
 
-Collision::Collision(GameObject * gameObject)
+Collision::Collision(GameObject & gameObject) :
+	m_gameObject(gameObject)
 {
-	m_gameObject = gameObject;
 
-	m_shape = new sf::CircleShape(3.0f);
-
-	m_shape->setOrigin(m_shape->getLocalBounds().width / 2.0f, m_shape->getLocalBounds().height / 2.0f);
-
-	m_shape->setFillColor(sf::Color::Green);
 }
 
 Collision::~Collision()
 {
-	delete m_shape;
+
 }
 
 void Collision::calculatePoints()
 {
-	sf::FloatRect bounds = m_gameObject->getLocalBounds();
+	sf::FloatRect bounds = m_gameObject.getLocalBounds();
 
 	float radius = sqrt(bounds.height * bounds.height + bounds.width * bounds.width);
 
-	float rotation = m_gameObject->getRotation() * PI / 180.0f;
+	float rotation = m_gameObject.getRotation() * PI / 180.0f;
 
 	float theta = atan2(bounds.height / 2.0f, bounds.width / 2.0f) + rotation;
 	float x = cos(theta);
 	float y = sin(theta);
-	m_a = m_gameObject->getPosition() + sf::Vector2f(x, y) * radius;
+	m_a = m_gameObject.getPosition() + sf::Vector2f(x, y) * radius;
 	
 	theta = atan2(bounds.height / 2.0f, -bounds.width / 2.0f) + rotation;
 	x = cos(theta);
 	y = sin(theta);
-	m_b = m_gameObject->getPosition() + sf::Vector2f(x, y) * radius;
+	m_b = m_gameObject.getPosition() + sf::Vector2f(x, y) * radius;
 	
 	theta = atan2(-bounds.height / 2.0f, -bounds.width / 2.0f) + rotation;
 	x = cos(theta);
 	y = sin(theta);
-	m_c = m_gameObject->getPosition() + sf::Vector2f(x, y) * radius;
+	m_c = m_gameObject.getPosition() + sf::Vector2f(x, y) * radius;
 	
 	theta = atan2(-bounds.height / 2.0f, bounds.width / 2.0f) + rotation;
 	x = cos(theta);
 	y = sin(theta);
-	m_d = m_gameObject->getPosition() + sf::Vector2f(x, y) * radius;
+	m_d = m_gameObject.getPosition() + sf::Vector2f(x, y) * radius;
 };
 
 void Collision::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-	m_shape->setPosition(m_a);
-	target.draw(*m_shape);
+	sf::Vertex box[5];
+	box[0].position = m_a;
+	box[0].color = m_debugColor;
+	box[1].position = m_b;
+	box[1].color = m_debugColor;
+	box[2].position = m_c;
+	box[2].color = m_debugColor;
+	box[3].position = m_d;
+	box[3].color = m_debugColor;
+	box[4].position = m_a;
+	box[4].color = m_debugColor;
+	
+	target.draw(&box[0], 5, sf::LineStrip);
 
-	m_shape->setPosition(m_b);
-	target.draw(*m_shape);
-
-	m_shape->setPosition(m_c);
-	target.draw(*m_shape);
-
-	m_shape->setPosition(m_d);
-	target.draw(*m_shape);
-
-	for(sf::Vector2f p : m_debugs)
+	for(unsigned int index_axis = 0; index_axis < m_debugs.size(); ++index_axis)
 	{
-		m_shape->setPosition(p);
-		target.draw(*m_shape);
+		sf::Vertex axisLine[m_debugs.at(index_axis).size()];
+
+		for(unsigned int index_point = 0; index_point < m_debugs.at(index_axis).size(); ++index_point)
+		{
+			axisLine[index_point].position = m_debugs.at(index_axis).at(index_point) + sf::Vector2f(1.0f, 1.0f);
+			axisLine[index_point].color = m_debugColor;
+		}
+
+		target.draw(&axisLine[0], m_debugs.at(index_axis).size(), sf::LineStrip);
 	}
 }
 
 void Collision::setCornerColor(sf::Color color)
 {
-	m_shape->setFillColor(color);
+	m_debugColor = color;
 }
 
 void Collision::update()
@@ -100,15 +104,21 @@ bool Collision::intersectsAxis(sf::Vector2f axis, Collision & other)
 	sf::Vector2f this_c = Math::projectPoint(m_c, axis);
 	sf::Vector2f this_d = Math::projectPoint(m_d, axis);
 
-	m_debugs.push_back(other_a);
-	m_debugs.push_back(other_b);
-	m_debugs.push_back(other_c);
-	m_debugs.push_back(other_d);
+	std::vector<sf::Vector2f> otherDebugs;
+	otherDebugs.push_back(other_a);
+	otherDebugs.push_back(other_b);
+	otherDebugs.push_back(other_c);
+	otherDebugs.push_back(other_d);
 	
-	m_debugs.push_back(this_a);
-	m_debugs.push_back(this_b);
-	m_debugs.push_back(this_c);
-	m_debugs.push_back(this_d);
+	other.m_debugs.push_back(otherDebugs);
+
+	std::vector<sf::Vector2f> thisDebugs;
+	thisDebugs.push_back(this_a);
+	thisDebugs.push_back(this_b);
+	thisDebugs.push_back(this_c);
+	thisDebugs.push_back(this_d);
+
+	m_debugs.push_back(thisDebugs);
 
 	std::vector<float> otherX;
 

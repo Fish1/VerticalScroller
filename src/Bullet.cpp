@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include <math.h>
+#include "Define.hpp"
 
 #include "TextureManager.hpp"
 
@@ -12,9 +12,11 @@ Bullet::Bullet(sf::Vector2f position, sf::Vector2f direction)
 
 	setPosition(position);
 
+	setRotation(atan2(direction.y, direction.x) * (180.0f / PI));
+
 	enableCollision();
 
-	setDebugColor(sf::Color::Blue);
+	setDebugColor(sf::Color::White);
 
 	float mag = sqrt((direction.x * direction.x) + (direction.y * direction.y));
 

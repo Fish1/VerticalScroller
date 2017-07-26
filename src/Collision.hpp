@@ -16,11 +16,11 @@ private:
 	sf::Vector2f m_c;
 	sf::Vector2f m_d;
 
-	std::vector<sf::Vector2f> m_debugs;
+	std::vector<std::vector<sf::Vector2f>> m_debugs;
 
-	sf::Shape * m_shape;
+	sf::Color m_debugColor;
 
-	GameObject * m_gameObject;
+	GameObject & m_gameObject;
 
 	void calculatePoints();
 
@@ -30,7 +30,7 @@ private:
 
 public:
 
-	Collision(GameObject * gameObject);
+	Collision(GameObject & gameObject);
 
 	~Collision();
 

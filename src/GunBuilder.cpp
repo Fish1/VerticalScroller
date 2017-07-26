@@ -18,9 +18,9 @@ GunBuilder & GunBuilder::setFireRate(float fireRate)
 	return *this;
 }
 
-GunBuilder & GunBuilder::setWorld(World * world)
+GunBuilder & GunBuilder::setWorld(World & world)
 {
-	m_world = world;
+	m_world = &world;
 
 	return *this;
 }

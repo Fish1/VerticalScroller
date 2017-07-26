@@ -29,7 +29,7 @@ public:
 
 	GunBuilder & setFireRate(float fireRate);
 
-	GunBuilder & setWorld(World * world);
+	GunBuilder & setWorld(World & world);
 
 	GunBuilder & setFire(std::function<void(World*, Gun*)> fire);
 	

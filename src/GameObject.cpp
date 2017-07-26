@@ -38,7 +38,7 @@ void GameObject::enableCollision()
 {
 	if(m_collision == nullptr)
 	{
-		m_collision = new Collision(this);
+		m_collision = new Collision(*this);
 	}
 }
 

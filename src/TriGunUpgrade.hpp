@@ -11,7 +11,7 @@ public:
 
 	TriGunUpgrade();
 
-	virtual void activate(Player * player, World * world);
+	virtual void activate(Player & player, World & world);
 
 };
 

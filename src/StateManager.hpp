@@ -17,6 +17,8 @@ public:
 
 	StateManager();
 
+	~StateManager();
+
 	void update(sf::RenderTarget & target);
 };
 

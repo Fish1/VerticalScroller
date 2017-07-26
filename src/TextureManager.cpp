@@ -15,7 +15,12 @@ TextureManager::TextureManager()
 
 TextureManager::~TextureManager()
 {
+	for(auto & texture : m_textures)
+	{
+		delete texture.second;
+	}
 
+	std::cout << "Texture Manager Deleted" << std::endl;
 }
 
 TextureManager & TextureManager::instance()
@@ -71,4 +76,9 @@ void TextureManager::loadFromFile(std::string key, std::string filename)
 sf::Texture & TextureManager::get(std::string key)
 {
 	return *m_textures.at(key);
+}
+
+void TextureManager::cleanUp()
+{
+	delete s_instance;
 }

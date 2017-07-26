@@ -26,7 +26,7 @@ void GameState::update(float delta)
 {
 	m_world->update(delta);
 
-	if(m_world->getPlayer()->getHealth() <= 0.0f)
+	if(m_world->getPlayer().getHealth() <= 0.0f)
 	{
 		m_nextState = new GameOverState();
 	}
