@@ -16,3 +16,11 @@ A simple vertical scrolling shooter game.
 ## Score Board
 
 [ScoreBoard](http://jacob-server.ddns.net/)
+
+## For Coders
+
+g_ indicates a global variable that should be defined in "Define.hpp"
+
+s_ indicates a static variable of a class
+
+m_ indicates a member variable of a class
