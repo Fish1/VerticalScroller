@@ -16,6 +16,11 @@ StateManager::~StateManager()
 	delete m_state;
 }
 
+void StateManager::updateInput(sf::String text)
+{
+	m_state->updateInput(text);
+}
+
 void StateManager::update(sf::RenderTarget & target)
 {
 	sf::Time time = m_clock.getElapsedTime();

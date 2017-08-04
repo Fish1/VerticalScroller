@@ -9,6 +9,8 @@ private:
 
 public:
 
+	virtual ~Curve();
+
 	virtual sf::Vector2f calculatePoint(float time) = 0;
 
 };

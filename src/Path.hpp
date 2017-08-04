@@ -19,7 +19,7 @@ public:
 
 	Path(std::vector<Curve *> curves, unsigned int split);
 
-	sf::Vector2f getWaypoint();
+	sf::Vector2f getWaypoint() const;
 
 	void update(sf::Vector2f currentPosition);
 };

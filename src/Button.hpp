@@ -9,13 +9,19 @@ class Button : public UIElement
 {
 private:
 
+	bool m_lmbClicked = false;
+
+	void updateSize();
+
 public:
 
-	Button(std::string text, sf::Vector2f position);
+	Button(sf::Vector2f position, std::string text);
 
 	virtual void update(float delta);
 
 	bool justClicked();
+
+	void setText(std::string text);
 };
 
 #endif

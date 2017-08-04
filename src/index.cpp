@@ -10,8 +10,26 @@
 
 #include "SoundBufferManager.hpp"
 
+#include "Define.hpp"
+
+#include <SFML/Network.hpp>
+
 int main(void)
 {
+	/*
+	sf::Http http("http://jacob-server.ddns.net/");
+
+	sf::Http::Request request;
+
+	request.setMethod(sf::Http::Request::Post);
+	request.setUri("/upload_score.php");
+	request.setBody("a=77&b=22");
+
+	sf::Http::Response response = http.sendRequest(request);
+	std::cout << "Network Status: " << response.getStatus() << std::endl;
+	std::cout << " -- " << response.getBody() << std::endl;
+	*/
+
 	sf::RenderWindow window(sf::VideoMode(720, 720), "Agalag", sf::Style::Close);
 
 	std::cout << std::endl;
@@ -41,6 +59,19 @@ int main(void)
 			if(event.type == sf::Event::Closed)
 			{
 				window.close();
+			}
+
+			if(event.type == sf::Event::KeyPressed)
+			{
+				if(event.key.code == sf::Keyboard::E)
+				{
+					g_debug = !g_debug;
+				}
+			}
+
+			if(event.type == sf::Event::TextEntered)
+			{
+				stateManager->updateInput(event.text.unicode);
 			}
 		}
 

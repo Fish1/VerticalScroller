@@ -1,8 +1,14 @@
 #ifndef DEFINE_HPP
 #define DEFINE_HPP
 
-#include <cmath>
+#include <string>
 
-#define PI 3.14159265359
+extern bool g_debug;
+
+extern const char * g_user;
+
+extern const char * g_pass;
+
+void setCredentials(std::string & username, std::string & password);
 
 #endif

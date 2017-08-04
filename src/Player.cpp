@@ -8,7 +8,7 @@
 
 #include "Gun.hpp"
 
-#include "Define.hpp"
+#include "Math.hpp"
 
 Player::Player()
 {
@@ -37,7 +37,7 @@ void Player::update(float delta)
 
 	if(mag > 3.0f)
 	{
-		move(direction * 450.0f * delta);
+		move(direction * 500.0f * delta);
 	}
 
 	if(m_gun != nullptr)

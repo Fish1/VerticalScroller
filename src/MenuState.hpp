@@ -11,7 +11,13 @@ class MenuState : public State
 {
 private:
 
-	UIElement * m_startButton;
+	UIElement * m_startButton = nullptr;
+
+	UIElement * m_registerButton = nullptr;
+
+	UIElement * m_loginButton = nullptr;
+
+	UIElement * m_logoutButton = nullptr;
 
 	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 
@@ -20,6 +26,8 @@ public:
 	MenuState();
 
 	~MenuState();
+
+	void updateInput(sf::String text);
 
 	void update(float delta);
 };

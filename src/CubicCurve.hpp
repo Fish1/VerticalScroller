@@ -19,6 +19,8 @@ public:
 
 	CubicCurve(sf::Vector2f point1, sf::Vector2f point2, sf::Vector2f point3, sf::Vector2f point4);
 
+	~CubicCurve();
+
 	sf::Vector2f calculatePoint(float time);
 
 };

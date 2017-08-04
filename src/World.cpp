@@ -18,13 +18,12 @@
 
 #include "LevelDisplay.hpp"
 
-#include "Gun.hpp"
-
 #include "GunBuilder.hpp"
+#include "BulletBuilder.hpp"
 
-#include "Bullet.hpp"
+#include "TextureManager.hpp"
 
-#include "Define.hpp"
+#include "Math.hpp"
 
 World::World()
 {
@@ -43,17 +42,24 @@ World::World()
 
 	GunBuilder gunBuilder;
 
-	gunBuilder.setWorld(*this).setFireRate(0.3f).setPlayer(true).setSound("res/sound/galaga_shoot1.ogg");
+	gunBuilder.setWorld(*this).setFireRate(0.07f).setPlayer(true).setSound("res/sound/galaga_shoot1.ogg");
 
 	gunBuilder.setFire([](World * world, Gun * gun)
 	{
-		float rotation = gun->getRotation() * (PI / 180.0f);
+		float rotation = gun->getRotation() * (Math::PI / 180.0f);
 
 		float x = cos(rotation);
 
 		float y = sin(rotation);
 
-		world->addPlayerBullet(new Bullet(gun->getPosition(), sf::Vector2f(x, y)));
+		BulletBuilder bb;
+
+		bb.setTexture(TextureManager::instance().get("smallprojectile_a"));
+		bb.setPosition(gun->getPosition());
+		bb.setDirection(sf::Vector2f(x, y));
+		bb.setSpeed(600.0f);
+
+		world->addPlayerBullet(dynamic_cast<Bullet*>(bb.build()));
 	});
 
 	dynamic_cast<Player*>(m_player)->setGun(dynamic_cast<Gun*>(gunBuilder.build()));
@@ -88,9 +94,14 @@ World::~World()
 	}
 }
 
-const Player & World::getPlayer()
+const Player & World::getPlayer() const
 {
 	return *dynamic_cast<Player*>(m_player);
+}
+
+unsigned int World::getScore() const
+{
+	return m_score;
 }
 
 void World::addEnemy(Enemy * enemy)
@@ -244,6 +255,8 @@ void World::updateCollision()
 				if(enemyCast->getHealth() == 0)
 				{
 					enemy->markDelete();
+
+					m_score += 1;
 				}
 
 				bullet->markDelete();

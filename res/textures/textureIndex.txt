@@ -4,3 +4,4 @@ ship.png
 redprojectile.png
 blueprojectile.png
 triupgrade.png
+smallprojectile_a.png

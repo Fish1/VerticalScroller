@@ -21,6 +21,8 @@ class World : public sf::Drawable
 {
 private:
 
+	unsigned int m_score = 0;
+
 	Spawner * m_spawner = nullptr;
 
 	GameObject * m_player = nullptr;
@@ -55,7 +57,9 @@ public:
 
 	void update(float delta);
 
-	const Player & getPlayer();
+	const Player & getPlayer() const;
+
+	unsigned int getScore() const;
 
 	void addEnemy(Enemy * enemy);
 

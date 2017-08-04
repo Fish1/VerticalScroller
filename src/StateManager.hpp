@@ -19,6 +19,8 @@ public:
 
 	~StateManager();
 
+	void updateInput(sf::String text);
+
 	void update(sf::RenderTarget & target);
 };
 

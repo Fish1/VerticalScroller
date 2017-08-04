@@ -16,12 +16,12 @@ class Gun : public GameObject
 protected:
 
 	World & m_world;
-
-	float m_lastFire = 0.0f;
-
+	
 	const float m_fireRate;
 
 	const bool m_player = false;
+
+	float m_lastFire = 0.0f;
 
 	std::function<void(World*, Gun*)> m_fire;
 	
@@ -29,41 +29,13 @@ protected:
 
 public:
 
-	Gun(World & world, float fireRate, bool player, std::function<void(World*, Gun*)> fire, std::string soundSrc = "") :
-		m_world(world), m_fireRate(fireRate), m_player(player), m_fire(fire)
-	{
-		m_lastFire = m_fireRate;
+	Gun(World & world, float fireRate, bool player, std::function<void(World*, Gun*)> fire, std::string soundSrc);
 
-		m_fireSound.setBuffer(SoundBufferManager::instance().get("galaga_shoot1"));
+	void update(float delta);
 
-		m_fireSound.setVolume(10.0f);
+	void fire();
 
-		m_fireSound.setPitch(0.6f);
-	}
-
-	void update(float delta)
-	{
-		m_lastFire += delta;
-	}
-
-	bool canFire()
-	{
-		return m_lastFire > m_fireRate;
-	}
-
-	void fire()
-	{
-		if(m_lastFire < m_fireRate)
-		{
-			return;
-		}
-
-		m_lastFire = 0.0f;
-
-		m_fire(&m_world, this);
-		
-		m_fireSound.play();
-	}
+	bool canFire() const;
 };
 
 #endif

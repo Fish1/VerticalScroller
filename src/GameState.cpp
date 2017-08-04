@@ -10,6 +10,8 @@
 
 #include "Bullet.hpp"
 
+#include "Define.hpp"
+
 GameState::GameState()
 {
 	std::cout << "Game State" << std::endl;
@@ -28,7 +30,7 @@ void GameState::update(float delta)
 
 	if(m_world->getPlayer().getHealth() <= 0.0f)
 	{
-		m_nextState = new GameOverState();
+		m_nextState = new GameOverState(m_world->getScore());
 	}
 }
 

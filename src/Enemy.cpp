@@ -14,12 +14,12 @@
 
 #include "Gun.hpp"
 
-#include "Define.hpp"
+#include "Math.hpp"
 
 #include "GunBuilder.hpp" 
 
 Enemy::Enemy(float health, float speed, std::string texture) :
-	m_health(health), m_speed(speed)
+	m_speed(speed), m_health(health)
 {
 	setTexture(TextureManager::instance().get(texture));
 
@@ -74,7 +74,7 @@ void Enemy::update(float delta)
 
 		float rotation = atan2(direction.y, direction.x);
 
-		rotation *= 180.0f / PI;
+		rotation *= 180.0f / Math::PI;
 
 		setRotation(rotation);
 	}

@@ -2,17 +2,18 @@
 
 #include <iostream>
 
-#include "Define.hpp"
+#include "Math.hpp"
 
 #include "TextureManager.hpp"
 
-Bullet::Bullet(sf::Vector2f position, sf::Vector2f direction)
+Bullet::Bullet(sf::Vector2f position, sf::Vector2f direction, float speed, sf::Texture & texture) :
+	m_speed(speed)
 {
-	setTexture(TextureManager::instance().get("blueprojectile"));
+	setTexture(texture);
 
 	setPosition(position);
 
-	setRotation(atan2(direction.y, direction.x) * (180.0f / PI));
+	setRotation(atan2(direction.y, direction.x) * (180.0f / Math::PI));
 
 	enableCollision();
 

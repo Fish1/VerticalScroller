@@ -7,6 +7,8 @@
 
 namespace Math
 {
+	const float PI = 3.14159265359;
+
 	float magnitude(sf::Vector2f vector);
 
 	float theta(sf::Vector2f vector);

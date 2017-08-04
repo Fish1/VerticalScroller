@@ -17,7 +17,7 @@ Path::Path(std::vector<Curve *> curves, unsigned int split)
 	}
 }
 
-sf::Vector2f Path::getWaypoint()
+sf::Vector2f Path::getWaypoint() const
 {
 	return m_waypoints.at(m_waypoint);
 }

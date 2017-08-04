@@ -9,3 +9,8 @@ State * State::getNextState() const
 {
 	return m_nextState;
 }
+
+void State::updateInput(sf::String text) 
+{
+
+}

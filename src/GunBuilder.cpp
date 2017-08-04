@@ -1,9 +1,5 @@
 #include "GunBuilder.hpp"
 
-#include "Gun.hpp"
-
-#include <iostream>
-
 GunBuilder & GunBuilder::setPlayer(bool player)
 {
 	m_player = player;

@@ -2,8 +2,6 @@
 
 #include "GameObject.hpp"
 
-#include "Define.hpp"
-
 #include "Math.hpp"
 
 #include <vector>
@@ -27,7 +25,7 @@ void Collision::calculatePoints()
 
 	float radius = sqrt(bounds.height * bounds.height + bounds.width * bounds.width);
 
-	float rotation = m_gameObject.getRotation() * PI / 180.0f;
+	float rotation = m_gameObject.getRotation() * (Math::PI / 180.0f);
 
 	float theta = atan2(bounds.height / 2.0f, bounds.width / 2.0f) + rotation;
 	float x = cos(theta);

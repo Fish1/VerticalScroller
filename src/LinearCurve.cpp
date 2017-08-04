@@ -8,6 +8,11 @@ LinearCurve::LinearCurve(sf::Vector2f point1, sf::Vector2f point2) :
 
 }
 
+LinearCurve::~LinearCurve()
+{
+
+}
+
 sf::Vector2f LinearCurve::calculatePoint(float time)
 {
 	sf::Vector2f point =

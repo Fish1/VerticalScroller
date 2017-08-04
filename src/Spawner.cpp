@@ -13,9 +13,11 @@
 #include "LinearCurve.hpp"
 
 #include "GunBuilder.hpp"
-#include "Bullet.hpp"
+#include "BulletBuilder.hpp"
 
-#include "Define.hpp"
+#include "TextureManager.hpp"
+
+#include "Math.hpp"
 
 #include <fstream>
 
@@ -50,13 +52,20 @@ void Spawner::update(float delta)
 
 		gunBuilder.setFire([](World * world, Gun * gun)
 		{
-			float rotation = gun->getRotation() * (PI / 180.0f);
+			float rotation = gun->getRotation() * (Math::PI / 180.0f);
 
 			float x = cos(rotation);
 
 			float y = sin(rotation);
 
-			world->addEnemyBullet(new Bullet(gun->getPosition(), sf::Vector2f(x, y)));
+			BulletBuilder bb;
+
+			bb.setPosition(gun->getPosition());
+			bb.setDirection(sf::Vector2f(x, y));
+			bb.setSpeed(500.0f);
+			bb.setTexture(TextureManager::instance().get("smallprojectile_a"));
+
+			world->addEnemyBullet(dynamic_cast<Bullet*>(bb.build()));
 		});
 
 		enemy->setGun(dynamic_cast<Gun*>(gunBuilder.build()));

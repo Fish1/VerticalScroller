@@ -22,6 +22,8 @@ public:
 
 	State * getNextState() const;
 
+	virtual void updateInput(sf::String text);
+
 	virtual void update(float delta) = 0;
 };
 

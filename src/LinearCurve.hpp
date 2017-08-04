@@ -15,6 +15,8 @@ public:
 
 	LinearCurve(sf::Vector2f point1, sf::Vector2f point2);
 
+	~LinearCurve();
+
 	sf::Vector2f calculatePoint(float time);
 
 };

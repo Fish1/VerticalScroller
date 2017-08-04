@@ -1,5 +1,9 @@
 #include "GameObject.hpp"
 
+#include "Define.hpp"
+
+#include <iostream>
+
 GameObject::GameObject()
 {
 	m_sprite = new sf::Sprite();
@@ -19,7 +23,7 @@ void GameObject::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(*m_sprite);
 
-	if(m_collision != nullptr)
+	if(g_debug == true && m_collision != nullptr)
 	{
 		target.draw(*m_collision);
 	}

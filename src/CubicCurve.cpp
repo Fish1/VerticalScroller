@@ -6,6 +6,11 @@ CubicCurve::CubicCurve(sf::Vector2f point1, sf::Vector2f point2, sf::Vector2f po
 
 }
 
+CubicCurve::~CubicCurve()
+{
+
+}
+
 sf::Vector2f CubicCurve::calculatePoint(float time)
 {
 	float tt = time * time;
