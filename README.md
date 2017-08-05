@@ -1,6 +1,6 @@
 # VerticalScroller
 
-A simple vertical scrolling shooter game.
+A simple vertical scrolling shooter game
 
 ## Dependencies
 - SFML
@@ -13,6 +13,9 @@ A simple vertical scrolling shooter game.
 3) `$ make`
 
 ## [Score Board](http://jacob-server.ddns.net/)
+
+An html page for displaying the top scores of registered users
+(Work in progress)
 
 ## For Coders
 
