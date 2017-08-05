@@ -69,6 +69,8 @@ void GameOverState::update(float delta)
 {
 	m_retryButton->update(delta);
 
+	m_menuButton->update(delta);
+
 	if(dynamic_cast<Button*>(m_retryButton)->justClicked())
 	{
 		m_nextState = new GameState();
