@@ -4,6 +4,8 @@ A simple vertical scrolling shooter game
 
 ## Dependencies
 - SFML
+
+## Tools
 - cmake
 - make
 
