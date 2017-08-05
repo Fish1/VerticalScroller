@@ -11,6 +11,8 @@ private:
 
 	UIElement * m_retryButton;
 
+	UIElement * m_menuButton;
+
 	UIElement * m_score;
 
 	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;

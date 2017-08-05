@@ -2,6 +2,8 @@
 
 #include "GameState.hpp"
 
+#include "MenuState.hpp"
+
 #include "Button.hpp"
 
 #include "Define.hpp"
@@ -14,7 +16,9 @@ GameOverState::GameOverState(unsigned int score)
 {
 	std::cout << "Game Over State" << std::endl;
 
-	m_retryButton = new Button(sf::Vector2f(720.0f / 2.0f, 720.0f / 2.0f), "RETRY");
+	m_menuButton = new Button(sf::Vector2f(720.0f / 2.0f, 720.0f / 1.2f), "MENU");
+
+	m_retryButton = new Button(sf::Vector2f(720.0f / 2.0f, 720.0f / 1.5f), "RETRY");
 
 	m_score = new Button(sf::Vector2f(720.0f / 2.0f, 200.0f), "Score: " + std::to_string(score));
 
@@ -46,11 +50,17 @@ GameOverState::GameOverState(unsigned int score)
 GameOverState::~GameOverState()
 {
 	delete m_retryButton;
+
+	delete m_menuButton;
+
+	delete m_score;
 }
 
 void GameOverState::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(*m_retryButton);
+
+	target.draw(*m_menuButton);
 
 	target.draw(*m_score);
 }
@@ -62,5 +72,10 @@ void GameOverState::update(float delta)
 	if(dynamic_cast<Button*>(m_retryButton)->justClicked())
 	{
 		m_nextState = new GameState();
+	}
+
+	if(dynamic_cast<Button*>(m_menuButton)->justClicked())
+	{
+		m_nextState = new MenuState();
 	}
 }
