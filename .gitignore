@@ -1,6 +1,7 @@
 CMakeFiles/
 cmake_modules/
 build/
+release/
 CMakeCache.txt
 Makefile
 cmake_install.cmake
