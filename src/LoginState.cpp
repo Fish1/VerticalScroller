@@ -63,7 +63,7 @@ void LoginState::login(std::string username, std::string password)
 	}
 }
 
-void LoginState::updateInput(sf::String text)
+void LoginState::updateText(sf::String text)
 {
 	dynamic_cast<TextBox*>(m_usernameText)->append(text);
 

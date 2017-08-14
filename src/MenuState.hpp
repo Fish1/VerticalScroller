@@ -19,6 +19,10 @@ private:
 
 	UIElement * m_logoutButton = nullptr;
 
+	UIElement * m_quitButton = nullptr;
+
+	UIElement * m_leaderBoardButton = nullptr;
+
 	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 
 public:
@@ -26,8 +30,6 @@ public:
 	MenuState();
 
 	~MenuState();
-
-	void updateInput(sf::String text);
 
 	void update(float delta);
 };

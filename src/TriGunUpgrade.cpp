@@ -22,6 +22,8 @@ void TriGunUpgrade::activate(Player & player, World & world)
 {
 	GunBuilder builder;
 
+	// Create a new gun
+
 	builder.setPlayer(true).setFireRate(0.2f).setWorld(world).setSound("galaga_shoot1")
 	.setFire([](World * world, Gun * gun) 
 	{
@@ -50,7 +52,11 @@ void TriGunUpgrade::activate(Player & player, World & world)
 		world->addPlayerBullet(dynamic_cast<Bullet*>(bb.build()));
 	});
 
+	// Changes the players gun to the new gun
+
 	player.setGun(dynamic_cast<Gun*>(builder.build()));
+
+	// Marks this object to be deleted
 
 	markDelete();
 }

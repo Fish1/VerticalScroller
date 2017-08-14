@@ -8,6 +8,8 @@
 
 #include "TextureManager.hpp"
 
+#include "FontManager.hpp"
+
 #include "SoundBufferManager.hpp"
 
 #include "Define.hpp"
@@ -16,20 +18,6 @@
 
 int main(void)
 {
-	/*
-	sf::Http http("http://jacob-server.ddns.net/");
-
-	sf::Http::Request request;
-
-	request.setMethod(sf::Http::Request::Post);
-	request.setUri("/upload_score.php");
-	request.setBody("a=77&b=22");
-
-	sf::Http::Response response = http.sendRequest(request);
-	std::cout << "Network Status: " << response.getStatus() << std::endl;
-	std::cout << " -- " << response.getBody() << std::endl;
-	*/
-
 	sf::RenderWindow window(sf::VideoMode(720, 720), "Agalag", sf::Style::Close);
 
 	std::cout << std::endl;
@@ -43,6 +31,14 @@ int main(void)
 	std::cout << "Loading Sounds..." << std::endl;
 
 	SoundBufferManager::instance().loadFromFile("galaga_shoot1", "res/sound/galaga_shoot1.ogg");
+
+	std::cout << std::endl;
+
+	std::cout << "Loading Fonts..." << std::endl;
+
+	FontManager::instance().loadFromFile("mono", "res/fonts/LiberationMono-Regular.ttf");
+
+	FontManager::instance().loadFromFile("game", "res/fonts/Audiowide-Regular.ttf");
 
 	std::cout << std::endl;
 
@@ -71,7 +67,12 @@ int main(void)
 
 			if(event.type == sf::Event::TextEntered)
 			{
-				stateManager->updateInput(event.text.unicode);
+				stateManager->updateText(event.text.unicode);
+			}
+
+			if(event.type == sf::Event::MouseWheelScrolled)
+			{
+				stateManager->updateScroll(event.mouseWheelScroll.delta);
 			}
 		}
 
@@ -87,4 +88,6 @@ int main(void)
 	TextureManager::instance().cleanUp();
 
 	SoundBufferManager::instance().cleanUp();
+
+	FontManager::instance().cleanUp();
 }

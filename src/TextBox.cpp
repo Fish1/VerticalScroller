@@ -2,37 +2,37 @@
 
 #include "MouseManager.hpp"
 
+#include "FontManager.hpp"
+
 TextBox::TextBox(sf::Vector2f position, std::string label)
 {
-	m_font = new sf::Font();
-
-	m_font->loadFromFile("res/fonts/LiberationMono-Regular.ttf");
+	sf::Font & font = FontManager::instance().get("mono");
 
 	m_text = new sf::Text();
 
-	m_text->setFont(*m_font);
+	m_text->setFont(font);
 
 	m_text->setString("");
 
 	m_text->setPosition(position + sf::Vector2f(5.0f, 0.0f));
 
-	m_shape = new sf::RectangleShape();
+	m_box = new sf::RectangleShape();
 
 	resizeBox();
 
-	m_shape->setPosition(position);
+	m_box->setPosition(position);
 
-	m_shape->setFillColor(sf::Color::Black);
+	m_box->setFillColor(sf::Color::Black);
 
-	m_shape->setOutlineColor(sf::Color::White);
+	m_box->setOutlineColor(sf::Color::White);
 
-	m_shape->setOutlineThickness(2.0f);
+	m_box->setOutlineThickness(2.0f);
 
 	m_blinker = new sf::RectangleShape();
 
 	m_label = new sf::Text();
 
-	m_label->setFont(*m_font);
+	m_label->setFont(font);
 
 	m_label->setString(label);
 
@@ -44,29 +44,13 @@ TextBox::~TextBox()
 	delete m_blinker;
 
 	delete m_label;
+
+	delete m_box;
+
+	delete m_text;
 }
 
-void TextBox::resizeBox()
-{
-	sf::Vector2f size(m_text->getGlobalBounds().width + 34.0f, 50.0f);
-
-	dynamic_cast<sf::RectangleShape*>(m_shape)->setSize(size);
-}
-
-void TextBox::activate()
-{
-	m_active = true;		
-	m_blinkTime = 0.5f;
-	m_blink = false;
-}
-
-void TextBox::deactivate()
-{
-	m_active = false;
-	m_blinkTime = 0.5f;
-	m_blink = true;
-}
-
+// Remove the last character that was inserted into the TextBox.
 void TextBox::truncate()
 {
 	std::string s = m_text->getString().toAnsiString();
@@ -79,37 +63,38 @@ void TextBox::truncate()
 	}
 }
 
-std::string TextBox::getString()
+// Reshape the TextBox as the user types into it.
+void TextBox::resizeBox()
 {
-	return m_text->getString().toAnsiString(); 	
+	sf::Vector2f size(m_text->getGlobalBounds().width + 34.0f, 50.0f);
+
+	dynamic_cast<sf::RectangleShape*>(m_box)->setSize(size);
 }
 
-void TextBox::append(sf::String text)
+// Set the state of the TextBox so that when the user types, the text is
+// inserted into this TextBox.
+void TextBox::activate()
 {
-	if(m_active == true)
-	{
-		if(text == "\b")
-		{
-			truncate();
-		}
-		else if(text == "\r" || text == "\t")
-		{
-			deactivate();
-		}
-		else
-		{
-			m_text->setString(m_text->getString() + text);
-		}
+	m_active = true;		
 
-		resizeBox();
-	}
+	m_blinkTime = 0.5f;
+
+	m_blink = false;
 }
 
-void TextBox::setCaption(sf::String caption)
+// Set the state of the TextBox so that when ther user types, the text is
+// not inserted into this TextBox.
+void TextBox::deactivate()
 {
-	m_label->setString(caption);
+	m_active = false;
+
+	m_blinkTime = 0.5f;
+
+	m_blink = true;
 }
 
+// When the TextBox is active, the blinker will blink and indicate that
+// this TextBox is active.
 void TextBox::updateBlinker(float delta)
 {
 	m_blinkTime += delta;
@@ -131,10 +116,49 @@ void TextBox::updateBlinker(float delta)
 	}
 	
 	sf::Vector2f blinkerPosition = 
-		m_shape->getPosition() + 
-		sf::Vector2f(m_shape->getGlobalBounds().width - (m_blinkerWidth + 2), 0.0f);
+		m_box->getPosition() + 
+		sf::Vector2f(m_box->getGlobalBounds().width - (m_blinkerWidth + 2), 0.0f);
 
 	m_blinker->setPosition(blinkerPosition);
+}
+
+void TextBox::draw(sf::RenderTarget & target, sf::RenderStates states) const
+{
+	target.draw(*m_box);
+
+	target.draw(*m_text);
+
+	target.draw(*m_blinker);
+
+	target.draw(*m_label);
+}
+
+// Put new text into the TextBox.
+void TextBox::append(sf::String text)
+{
+	if(m_active == true)
+	{
+		if(text == "\b")
+		{
+			truncate();
+		}
+		else if(text == "\r" || text == "\t")
+		{
+			deactivate();
+		}
+		else
+		{
+			m_text->setString(m_text->getString() + text);
+		}
+
+		resizeBox();
+	}
+}
+
+// Change the caption above the TextBox.
+void TextBox::setCaption(sf::String caption)
+{
+	m_label->setString(caption);
 }
 
 void TextBox::update(float delta)
@@ -143,12 +167,12 @@ void TextBox::update(float delta)
 
 	sf::Vector2i mouse = mm->getPosition();
 
-	if(m_shape->getGlobalBounds().contains(sf::Vector2f(mouse.x, mouse.y)) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	if(m_box->getGlobalBounds().contains(sf::Vector2f(mouse.x, mouse.y)) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
 		activate();
 	}
 	
-	if(!m_shape->getGlobalBounds().contains(sf::Vector2f(mouse.x, mouse.y)) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	if(!m_box->getGlobalBounds().contains(sf::Vector2f(mouse.x, mouse.y)) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
 		deactivate();
 	}
@@ -156,13 +180,9 @@ void TextBox::update(float delta)
 	updateBlinker(delta);
 }
 
-void TextBox::draw(sf::RenderTarget & target, sf::RenderStates states) const
+std::string TextBox::getString()
 {
-	target.draw(*m_shape);
-
-	target.draw(*m_text);
-
-	target.draw(*m_blinker);
-
-	target.draw(*m_label);
+	return m_text->getString().toAnsiString(); 	
 }
+
+

@@ -94,26 +94,33 @@ World::~World()
 	}
 }
 
+// Provides outside access to the player.
 const Player & World::getPlayer() const
 {
 	return *dynamic_cast<Player*>(m_player);
 }
 
+// Provides outside access to the players score.
 unsigned int World::getScore() const
 {
 	return m_score;
 }
 
+// Adds an enemy to the world for it to be updated and rendered.
 void World::addEnemy(Enemy * enemy)
 {
 	m_enemies.push_back(enemy);
 }
 
+// Adds a bullet to the world for it to be updated and rendered. This bullet
+// will not harm any enemy ship.
 void World::addEnemyBullet(Bullet * bullet)
 {
 	m_enemyBullets.push_back(bullet);
 }
 
+// Adds a bullet to the world for it to be updated and rendered. This bullet
+// will not harm the players ship.
 void World::addPlayerBullet(Bullet * bullet)
 {
 	m_playerBullets.push_back(bullet);
@@ -146,6 +153,7 @@ void World::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	target.draw(*m_levelDisplay);
 }
 
+// Calls all of the other update functions.
 void World::update(float delta)
 {
 	updateSpawner(delta);
@@ -157,6 +165,7 @@ void World::update(float delta)
 	updateDeletes();
 }
 
+// Loops through al lgame objects and updates them with a timestep.
 void World::updateGameObjects(float delta)
 {
 	m_levelDisplay->update(delta);
@@ -184,6 +193,8 @@ void World::updateGameObjects(float delta)
 	}
 }
 
+// Updates the spawner with the proper timestep. It will also load a new
+// spawner after the current level is finished.
 void World::updateSpawner(float delta)
 {
 	m_spawner->update(delta);
@@ -198,6 +209,8 @@ void World::updateSpawner(float delta)
 	}
 }
 
+// Loops through game objects to detect collisions and determine
+// proper action after collision
 void World::updateCollision()
 {
 	for(GameObject * upgrade : m_upgrades)
@@ -265,6 +278,9 @@ void World::updateCollision()
 	}
 }
 
+// Loops through and polls each game object to see if it is requesting
+// to be deleted. If so, then it will remove that object from the
+// world.
 void World::updateDeletes()
 {
 	for(unsigned int index = 0; index < m_enemies.size(); ++index)

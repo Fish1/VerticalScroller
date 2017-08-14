@@ -16,11 +16,19 @@ StateManager::~StateManager()
 	delete m_state;
 }
 
-void StateManager::updateInput(sf::String text)
+// Send the keyboard input to the current state
+void StateManager::updateText(sf::String text)
 {
-	m_state->updateInput(text);
+	m_state->updateText(text);
 }
 
+// Send the mouse wheel scroll to the current state.
+void StateManager::updateScroll(float delta)
+{
+	m_state->updateScroll(delta);
+}
+
+// Update and render the current state
 void StateManager::update(sf::RenderTarget & target)
 {
 	sf::Time time = m_clock.getElapsedTime();

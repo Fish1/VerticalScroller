@@ -73,7 +73,7 @@ void RegisterState::registerUser(std::string username, std::string password)
 	}
 }
 
-void RegisterState::updateInput(sf::String text)
+void RegisterState::updateText(sf::String text)
 {
 	dynamic_cast<TextBox*>(m_usernameText)->append(text);
 

@@ -27,10 +27,9 @@ public:
 
 	~RegisterState();
 
-	void updateInput(sf::String text);
+	void updateText(sf::String text);
 
 	void update(float delta);
-
 };
 
 #endif

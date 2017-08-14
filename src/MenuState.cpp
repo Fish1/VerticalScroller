@@ -6,6 +6,8 @@
 
 #include "LoginState.hpp"
 
+#include "LeaderBoardState.hpp"
+
 #include "Define.hpp"
 
 #include "Button.hpp"
@@ -19,6 +21,10 @@ MenuState::MenuState()
 	std::cout << "Menu State" << std::endl;
 
 	m_startButton = new Button(sf::Vector2f(720.0f / 2.0f, 720.0f / 2.0f), "START");
+
+	m_quitButton = new Button(sf::Vector2f(100.0f, 720.0f / 1.2f), "QUIT");
+
+	m_leaderBoardButton = new Button(sf::Vector2f(720.0f / 2.0f, 100.0f), "LEADERBOARD");
 
 	if(g_user == nullptr)
 	{
@@ -45,6 +51,10 @@ MenuState::~MenuState()
 {
 	delete m_startButton;
 
+	delete m_quitButton;
+
+	delete m_leaderBoardButton;
+
 	if(m_registerButton != nullptr)
 	{
 		delete m_registerButton;
@@ -59,11 +69,6 @@ MenuState::~MenuState()
 	{
 		delete m_logoutButton;
 	}
-}
-
-void MenuState::updateInput(sf::String text)
-{
-
 }
 
 void MenuState::update(float delta)
@@ -109,10 +114,24 @@ void MenuState::update(float delta)
 	}
 
 	m_startButton->update(delta);
-
+	
 	if(dynamic_cast<Button*>(m_startButton)->justClicked())
 	{
 		m_nextState = new GameState();	
+	}
+
+	m_quitButton->update(delta);
+
+	if(dynamic_cast<Button*>(m_quitButton)->justClicked())
+	{
+		exit(0);
+	}
+
+	m_leaderBoardButton->update(delta);
+
+	if(dynamic_cast<Button*>(m_leaderBoardButton)->justClicked())
+	{
+		m_nextState = new LeaderBoardState();
 	}
 
 }
@@ -120,6 +139,10 @@ void MenuState::update(float delta)
 void MenuState::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(*m_startButton);
+
+	target.draw(*m_quitButton);
+
+	target.draw(*m_leaderBoardButton);
 
 	if(m_registerButton != nullptr)
 	{

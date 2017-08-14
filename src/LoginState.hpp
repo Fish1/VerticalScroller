@@ -27,7 +27,7 @@ public:
 
 	~LoginState();
 
-	void updateInput(sf::String text);
+	void updateText(sf::String text);
 
 	void update(float delta);
 };

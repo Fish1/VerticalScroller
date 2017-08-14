@@ -2,15 +2,15 @@
 
 #include "MouseManager.hpp"
 
+#include "FontManager.hpp"
+
 Button::Button(sf::Vector2f position, std::string text)
 {
-	m_font = new sf::Font();
-
-	m_font->loadFromFile("res/fonts/Audiowide-Regular.ttf");
+	sf::Font & font = FontManager::instance().get("game");
 
 	m_text = new sf::Text();
 
-	m_text->setFont(*m_font);
+	m_text->setFont(font);
 
 	m_text->setString(text);
 
@@ -21,6 +21,13 @@ Button::Button(sf::Vector2f position, std::string text)
 	m_shape->setFillColor(sf::Color::Blue);
 
 	updateSize();
+}
+
+Button::~Button()
+{
+	delete m_text;
+
+	delete m_shape;
 }
 
 void Button::updateSize()
@@ -77,4 +84,11 @@ void Button::setText(std::string text)
 	m_text->setString(text);
 
 	updateSize();
+}
+
+void Button::draw(sf::RenderTarget & target, sf::RenderStates states) const
+{
+	target.draw(*m_shape);
+	
+	target.draw(*m_text);
 }

@@ -22,7 +22,7 @@ public:
 	GameOverState(unsigned int score);
 
 	~GameOverState();
-	
+
 	void update(float delta);
 };
 

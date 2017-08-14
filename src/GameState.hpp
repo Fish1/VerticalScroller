@@ -20,7 +20,6 @@ public:
 	~GameState();
 
 	void update(float delta);
-
 };
 
 #endif

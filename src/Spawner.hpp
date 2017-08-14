@@ -35,14 +35,46 @@ public:
 
 	Spawner(World & world);
 
+	/*
+	 *	Determine when to spawn new GameObjects.
+	 *
+	 *	@param1 - The timestep.
+	 *
+	 *	@return - void
+	 */
 	void update(float delta);
 
+	/*
+	 *	Read a file and fill the SpawnElement vector
+	 *	with the proper objects.
+	 *
+	 *	@param1 - The level that should be loaded.
+	 *
+	 *	@return - void
+	 */
 	void loadFromFile(std::string filename);
 
+	/*
+	 *	The first file that is loaded should indicate
+	 *	the next file that should be loaded. This function
+	 *	will load that file.
+	 *
+	 *	@param - none
+	 *
+	 *	@return - void
+	 */
 	void loadNextLevel();
 
 	std::string getLevelName();
 
+	/*
+	 *	To indicate if there are more GameObjects that need to spawn.
+	 *
+	 *	@param - none
+	 *
+	 *	@return - Boolean that indicates that there are no more GameObjects
+	 *	that need to spawn.
+	 */
 	bool empty();
 };
 

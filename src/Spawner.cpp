@@ -29,6 +29,7 @@ Spawner::Spawner(World & world) :
 	m_enemyFactory = new EnemyFactory();
 }
 
+// Determine when to spawn new GameObjects.
 void Spawner::update(float delta)
 {
 	if(m_spawnElements.size() <= 0)
@@ -80,6 +81,7 @@ void Spawner::update(float delta)
 	}
 }
 
+// Read a file and fill the SpawnElement vector with the proper objects.
 void Spawner::loadFromFile(std::string filename)
 {
 	std::ifstream in;
@@ -163,6 +165,8 @@ void Spawner::loadFromFile(std::string filename)
 	}
 }
 
+// The first file that is loaded should indicate the next file that should be loaded.
+// This function will load that file.
 void Spawner::loadNextLevel()
 {
 	loadFromFile(m_nextLevel);
@@ -173,6 +177,7 @@ std::string Spawner::getLevelName()
 	return m_levelName;
 }
 
+// To indicate if there are more GameObjects that need to spawn.
 bool Spawner::empty()
 {
 	return m_spawnElements.size() == 0;
