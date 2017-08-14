@@ -17,3 +17,23 @@ target_compile_options(app PRIVATE "-Werror")
 target_compile_options(app PRIVATE "-Wall")
 
 install(TARGETS ${EXECUTABLE_NAME} DESTINATION bin)
+
+set(BUILD_DIR "${CMAKE_SOURCE_DIR}/build")
+
+add_custom_target("BUILD")
+
+if(WIN32)
+	
+	set(EXECUTABLE_NAME "app.exe")
+
+endif(WIN32)
+
+add_custom_command(
+	TARGET "BUILD" POST_BUILD
+	COMMAND ${CMAKE_COMMAND} -E make_directory ${BUILD_DIR}
+	COMMAND ${CMAKE_COMMAND} -E make_directory ${BUILD_DIR}/res
+	COMMAND ${CMAKE_COMMAND} -E copy_directory res ${BUILD_DIR}/res
+	COMMAND ${CMAKE_COMMAND} -E copy ${EXECUTABLE_NAME} ${BUILD_DIR}
+	COMMAND ${CMAKE_COMMAND} -E copy_directory ${SFML_ROOT}/bin ${BUILD_DIR}
+	)
+
