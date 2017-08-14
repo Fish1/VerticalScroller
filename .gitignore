@@ -1,5 +1,14 @@
 CMakeFiles/
+cmake_modules/
 CMakeCache.txt
 Makefile
 cmake_install.cmake
 app
+app.exe
+sfml-audio-2.dll
+sfml-graphics-2.dll
+sfml-network-2.dll
+sfml-system-2.dll
+sfml-window-2.dll
+openal32.dll
+*~
