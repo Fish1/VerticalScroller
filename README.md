@@ -11,3 +11,5 @@ A simple vertical scrolling shooter game
 
 This web page will display the most recent score of all registered users. (WIP) <br>
 [link](http://jacob-server.ddns.net/)
+
+The PHP/SQL server hosting the score board was my personal computer at home. While I am in college the server will be down.
