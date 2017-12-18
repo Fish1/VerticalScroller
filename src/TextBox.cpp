@@ -6,7 +6,7 @@
 
 TextBox::TextBox(sf::Vector2f position, std::string label)
 {
-	sf::Font & font = FontManager::instance().get("mono");
+	sf::Font & font = FontManager::instance().get("LiberationMono-Regular");
 
 	m_text = new sf::Text();
 

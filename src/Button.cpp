@@ -6,7 +6,7 @@
 
 Button::Button(sf::Vector2f position, std::string text)
 {
-	sf::Font & font = FontManager::instance().get("game");
+	sf::Font & font = FontManager::instance().get("Audiowide-Regular");
 
 	m_text = new sf::Text();
 

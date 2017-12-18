@@ -26,6 +26,8 @@ public:
 
 	static FontManager & instance();
 
+	void loadFromIndex(std::string filename);
+
 	void loadFromFile(std::string key, std::string filename);
 
 	sf::Font & get(std::string key);

@@ -27,6 +27,10 @@ Spawner::Spawner(World & world) :
 	m_world(world)
 {
 	m_enemyFactory = new EnemyFactory();
+
+	std::cout << "Loading Enemies..." << std::endl;
+
+	m_enemyFactory->loadFromFile("t", "res/enemies/testenemy");
 }
 
 // Determine when to spawn new GameObjects.

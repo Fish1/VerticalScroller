@@ -4,6 +4,8 @@
 
 #include <iostream>
 
+#include <fstream>
+
 SoundBufferManager * SoundBufferManager::s_instance = nullptr;
 
 SoundBufferManager::SoundBufferManager()
@@ -29,6 +31,26 @@ SoundBufferManager & SoundBufferManager::instance()
 	}
 
 	return * s_instance;
+}
+
+void SoundBufferManager::loadFromIndex(std::string filename)
+{
+	std::ifstream in(filename);
+
+	std::string soundPath = "res/sounds/";
+
+	std::string soundFilename;
+
+	while(in >> soundFilename)
+	{
+		unsigned int dotIndex = soundFilename.find(".");
+
+		std::string key = soundFilename.substr(0, dotIndex);
+
+		soundFilename = soundPath + soundFilename;
+
+		loadFromFile(key, soundFilename);
+	}
 }
 
 void SoundBufferManager::loadFromFile(std::string key, std::string filename)

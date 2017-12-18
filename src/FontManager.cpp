@@ -4,6 +4,8 @@
 
 #include <iostream>
 
+#include <fstream>
+
 FontManager * FontManager::s_instance = nullptr;
 
 FontManager::FontManager()
@@ -29,6 +31,26 @@ FontManager & FontManager::instance()
 	}
 
 	return *s_instance;
+}
+
+void FontManager::loadFromIndex(std::string filename)
+{
+	std::ifstream in(filename);
+
+	std::string fontPath = "res/fonts/";
+
+	std::string fontFilename;
+
+	while(in >> fontFilename)
+	{
+		unsigned int dotIndex = fontFilename.find(".");
+
+		std::string key = fontFilename.substr(0, dotIndex);
+
+		fontFilename = fontPath + fontFilename;
+
+		loadFromFile(key, fontFilename);
+	}
 }
 
 void FontManager::loadFromFile(std::string key, std::string filename)

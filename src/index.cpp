@@ -30,15 +30,17 @@ int main(void)
 
 	std::cout << "Loading Sounds..." << std::endl;
 
-	SoundBufferManager::instance().loadFromFile("galaga_shoot1", "res/sound/galaga_shoot1.ogg");
+	SoundBufferManager::instance().loadFromIndex("res/sounds/soundIndex.txt");
 
 	std::cout << std::endl;
 
 	std::cout << "Loading Fonts..." << std::endl;
 
-	FontManager::instance().loadFromFile("mono", "res/fonts/LiberationMono-Regular.ttf");
+	FontManager::instance().loadFromIndex("res/fonts/fontIndex.txt");
 
-	FontManager::instance().loadFromFile("game", "res/fonts/Audiowide-Regular.ttf");
+	// FontManager::instance().loadFromFile("mono", "res/fonts/LiberationMono-Regular.ttf");
+
+	// FontManager::instance().loadFromFile("game", "res/fonts/Audiowide-Regular.ttf");
 
 	std::cout << std::endl;
 

@@ -57,6 +57,10 @@ void LoginState::login(std::string username, std::string password)
 
 		m_nextState = new MenuState();
 	}
+	else if(response.getStatus() == 1001)
+	{
+		dynamic_cast<TextBox*>(m_usernameText)->setCaption("Username: (No Connection)");
+	}
 	else
 	{
 		dynamic_cast<TextBox*>(m_usernameText)->setCaption("Username: (Invalid Login)");

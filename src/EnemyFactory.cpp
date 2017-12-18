@@ -2,6 +2,8 @@
 
 #include "EnemyBuilder.hpp"
 
+#include <fstream>
+
 EnemyFactory::EnemyFactory()
 {
 	/*
@@ -34,6 +36,23 @@ EnemyFactory::EnemyFactory()
 	builder->setHealth(20).setSpeed(100.0f).setTexture("boss1");
 
 	m_builders.insert(std::pair<std::string, EnemyBuilder*>("boss1", builder));
+}
+
+void EnemyFactory::loadFromFile(std::string key, std::string filename)
+{
+	EnemyBuilder * builder = new EnemyBuilder();
+
+	std::ifstream in(filename);
+
+	std::string textureKey;
+	int health; 
+	float speed;
+
+	in >> textureKey;
+	in >> health;
+	in >> speed;	
+
+	builder->setHealth(health).setSpeed(speed).setTexture(textureKey);
 }
 
 GameObject * EnemyFactory::build(std::string key)

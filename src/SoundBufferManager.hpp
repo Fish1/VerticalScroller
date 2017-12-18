@@ -26,6 +26,8 @@ public:
 
 	static SoundBufferManager & instance();
 
+	void loadFromIndex(std::string filename);
+
 	void loadFromFile(std::string key, std::string filename);
 
 	sf::SoundBuffer & get(std::string key);

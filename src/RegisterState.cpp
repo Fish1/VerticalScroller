@@ -48,17 +48,23 @@ void RegisterState::registerUser(std::string username, std::string password)
 		return;
 	}
 
-	sf::Http http("http://jacob-server.ddns.net/");
+	sf::Http http("http://jacobenders.ddns.net/");
 
 	sf::Http::Request request;
 
 	request.setMethod(sf::Http::Request::Post);
-	request.setUri("/register_user.php");
+	request.setUri("/~jacob/register_user.php");
 	request.setBody("username=" + username + "&password=" + password);
 
 	sf::Http::Response response = http.sendRequest(request);
 	std::cout << " -- network status -- " << response.getStatus() << std::endl;
 	std::cout << " -- " << response.getBody() << std::endl;
+	
+	if(response.getStatus() == 1001)
+	{
+		dynamic_cast<TextBox*>(m_usernameText)->setCaption("Username: (No Connection)");	
+
+	}
 
 	if(response.getBody() == "user already exists")
 	{
@@ -71,6 +77,7 @@ void RegisterState::registerUser(std::string username, std::string password)
 
 		m_nextState = new MenuState();
 	}
+
 }
 
 void RegisterState::updateText(sf::String text)
