@@ -48,7 +48,7 @@ void RegisterState::registerUser(std::string username, std::string password)
 		return;
 	}
 
-	sf::Http http("http://jacobenders.ddns.net/");
+	sf::Http http("http://jacob-enders.ddns.net/");
 
 	sf::Http::Request request;
 

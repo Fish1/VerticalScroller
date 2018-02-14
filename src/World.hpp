@@ -152,6 +152,16 @@ public:
 	 *	@return - void
 	 */
 	void addEnemyBullet(Bullet * bullet);
+
+	/*
+	 *	If this returns true then the player has beat the
+	 *	game. Will return true if there are no enemies on 
+	 *	the scree, if there are no enemies in the spawner
+	 *	and if there are no more levels to load.
+	 *
+	 *	@return - boolean, the player has beat the game
+	 */
+	bool gameOver();
 };
 
 #endif

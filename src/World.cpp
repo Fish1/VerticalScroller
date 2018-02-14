@@ -36,6 +36,7 @@ World::World()
 	m_levelDisplay = new LevelDisplay(m_spawner->getLevelName());
 
 	Upgrade * upgrade = new TriGunUpgrade;
+	
 	upgrade->setPosition(sf::Vector2f(720.0f / 2.0f, 0.0f));
 
 	m_upgrades.push_back(upgrade);
@@ -207,6 +208,14 @@ void World::updateSpawner(float delta)
 
 		m_levelDisplay = new LevelDisplay(m_spawner->getLevelName());
 	}
+
+	// if there are no more levels to load
+	// kill the player to end the game ez
+	
+	if(gameOver())
+	{
+		dynamic_cast<Player*>(m_player)->takeDamage(999999.0f);
+	}
 }
 
 // Loops through game objects to detect collisions and determine
@@ -338,4 +347,15 @@ void World::updateDeletes()
 			--index;
 		}
 	}
+}
+
+// If this returns true the player has beat the game
+// Returns true if there are no enemies on the screen,
+// no enemies left in the spawner,
+// and if there is not another level to be loaded.
+bool World::gameOver()
+{
+	return m_enemies.size() == 0 && 
+		m_spawner->empty() && 
+		m_spawner->isNextLevel() == false;
 }

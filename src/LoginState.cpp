@@ -39,7 +39,7 @@ LoginState::~LoginState()
 
 void LoginState::login(std::string username, std::string password)
 {
-	sf::Http http("http://jacob-server.ddns.net/");
+	sf::Http http("http://jacob-enders.ddns.net/");
 
 	sf::Http::Request request;
 

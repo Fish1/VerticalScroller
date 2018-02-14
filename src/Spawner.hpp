@@ -27,6 +27,8 @@ private:
 
 	float m_lastSpawn = 0.0f;
 
+	bool m_isNextLevel = false;
+
 	World & m_world;
 
 	std::vector<SpawnElement *> m_spawnElements;
@@ -76,6 +78,18 @@ public:
 	 *	that need to spawn.
 	 */
 	bool empty();
+
+	/*
+	 *	To indicate if there is another level to load after this.
+	 *	The level file should have end to indicate that there
+	 *	is not another level to load.
+	 *
+	 *	@param - none
+	 *
+	 *	@return - Boolean that indicates that there are no more
+	 *	levels to load.
+	 */
+	bool isNextLevel();
 };
 
 #endif

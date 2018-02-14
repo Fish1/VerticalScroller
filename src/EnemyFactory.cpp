@@ -28,6 +28,16 @@ EnemyFactory::EnemyFactory()
 	m_builders.insert(std::pair<std::string, EnemyBuilder*>("enemy2", builder));
 
 	/*
+	 * "enemy3" does stuff and it is blue :)
+	 */
+
+	builder = new EnemyBuilder();
+
+	builder->setHealth(1).setSpeed(300.0f).setTexture("enemy2");
+
+	m_builders.insert(std::pair<std::string, EnemyBuilder*>("enemy3", builder));
+
+	/*
 	 * "boss1" has more health but slower speed
 	 */
 

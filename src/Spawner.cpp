@@ -96,6 +96,11 @@ void Spawner::loadFromFile(std::string filename)
 
 	std::getline(in, m_nextLevel);
 
+	if(m_nextLevel == "end")
+	{
+		m_isNextLevel = false;
+	}
+
 	m_nextLevel = "res/levels/" + m_nextLevel;
 
 	float delta;
@@ -185,4 +190,11 @@ std::string Spawner::getLevelName()
 bool Spawner::empty()
 {
 	return m_spawnElements.size() == 0;
+}
+
+
+// To indicate if there is another level to load after this one.
+bool Spawner::isNextLevel()
+{
+	return m_isNextLevel;
 }

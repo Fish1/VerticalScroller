@@ -1,5 +1,6 @@
 missing.png
 enemy1.png
+enemy2.png
 boss1.png
 ship.png
 redprojectile.png

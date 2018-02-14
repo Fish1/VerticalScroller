@@ -1,5 +1,5 @@
 Stage 2
-end
+level3.txt
 3.0 enemy1 100 0 linear 100 750 #
 0.2 enemy1 100 0 linear 300 750 #
 0.2 enemy1 100 0 linear 500 750 #
