@@ -9,7 +9,7 @@ public:
 
 	EnemyFactory();
 
-	void loadFromFile(std::string key, std::string filename);
+	void loadFromFile(std::string filename);
 
 	virtual GameObject * build(std::string key);
 };
