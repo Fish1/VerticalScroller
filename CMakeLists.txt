@@ -7,7 +7,7 @@ set(EXECUTABLE "app")
 
 add_executable(${EXECUTABLE} ${SRC})
 
-set(CMAKE_MODULE_PATH "${SFML_ROOT}/cmake/Modules/" ${CMAKE_MODULE_PATH})
+set(CMAKE_MODULE_PATH "/usr/share/SFML/cmake/Modules/" ${CMAKE_MODULE_PATH})
 find_package(SFML 2.4 REQUIRED system window graphics network audio)
 
 include_directories(${SFML_INCLUDE_DIR})
