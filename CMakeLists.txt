@@ -18,7 +18,7 @@ target_compile_options(app PRIVATE "-Wall")
 
 install(TARGETS ${EXECUTABLE} DESTINATION bin)
 
-set(RELEASE_DIR "${CMAKE_SOURCE_DIR}/release")
+set(RELEASE_DIR "${CMAKE_SOURCE_DIR}/build/release")
 
 add_custom_target(RELEASE)
 add_dependencies(RELEASE ${EXECUTABLE})
@@ -29,10 +29,10 @@ endif(WIN32)
 
 add_custom_command(
 	TARGET RELEASE POST_BUILD
+	COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_SOURCE_DIR}/build
 	COMMAND ${CMAKE_COMMAND} -E make_directory ${RELEASE_DIR}
 	COMMAND ${CMAKE_COMMAND} -E make_directory ${RELEASE_DIR}/res
 	COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/res ${RELEASE_DIR}/res
 	COMMAND ${CMAKE_COMMAND} -E copy ${EXECUTABLE} ${RELEASE_DIR}
-	COMMAND ${CMAKE_COMMAND} -E copy_directory ${SFML_ROOT}/bin ${RELEASE_DIR}
 	)
 
