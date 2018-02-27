@@ -1,5 +1,5 @@
 test missing 1 200
-enemy1 enemy1 1 200
+enemy1 enemy1 1 700
 enemy2 enemy1 1 300
 enemy3 enemy2 1 350
 boss1 boss1 30 200
