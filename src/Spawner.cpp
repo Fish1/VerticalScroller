@@ -12,6 +12,8 @@
 
 #include "LinearCurve.hpp"
 
+#include "GunFactory.hpp"
+
 #include "GunBuilder.hpp"
 #include "BulletBuilder.hpp"
 
@@ -27,7 +29,9 @@ Spawner::Spawner(World & world) :
 	m_world(world)
 {
 	m_enemyFactory = new EnemyFactory();
-   
+
+	m_gunFactory = new GunFactory(world);
+
 	m_enemyFactory->loadFromFile("res/entities/enemies.txt");
 }
 
@@ -45,33 +49,12 @@ void Spawner::update(float delta)
 
 	if(m_lastSpawn > spawnElement->getDelta())
 	{
+
 		Enemy * enemy = dynamic_cast<Enemy*>(m_enemyFactory->build(spawnElement->getType()));
 
 		enemy->setPath(spawnElement->getPath());
-
-		GunBuilder gunBuilder;
-
-		gunBuilder.setWorld(m_world).setFireRate(1.0f).setPlayer(false);
-
-		gunBuilder.setFire([](World * world, Gun * gun)
-		{
-			float rotation = gun->getRotation() * (Math::PI / 180.0f);
-
-			float x = cos(rotation);
-
-			float y = sin(rotation);
-
-			BulletBuilder bb;
-
-			bb.setPosition(gun->getPosition());
-			bb.setDirection(sf::Vector2f(x, y));
-			bb.setSpeed(500.0f);
-			bb.setTexture(TextureManager::instance().get("smallprojectile_a"));
-
-			world->addEnemyBullet(dynamic_cast<Bullet*>(bb.build()));
-		});
-
-		enemy->setGun(dynamic_cast<Gun*>(gunBuilder.build()));
+		
+		enemy->setGun(dynamic_cast<Gun*>(m_gunFactory->build("single_500_1")));
 
 		m_world.addEnemy(enemy);
 

@@ -13,11 +13,15 @@ class SpawnElement;
 
 class EnemyFactory;
 
+class GunFactory;
+
 class Spawner
 {
 private:
 
 	EnemyFactory * m_enemyFactory;
+
+	GunFactory * m_gunFactory;
 
 	std::string m_nextLevel;
 

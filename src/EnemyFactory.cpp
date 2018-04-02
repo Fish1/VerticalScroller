@@ -61,8 +61,9 @@ void EnemyFactory::loadFromFile(std::string filename)
 	std::string texture;
 	unsigned int health;
 	unsigned int speed;
+	//std::string gun;
 
-	while(in >> name >> texture >> health >> speed)
+	while(in >> name >> texture >> health >> speed) //>> gun)
 	{
 		EnemyBuilder * builder = new EnemyBuilder();
 	
