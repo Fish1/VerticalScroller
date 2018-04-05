@@ -1,7 +1,9 @@
 #include "Gun.hpp"
 
-Gun::Gun(World & world, float fireRate, bool player, std::function<void(World *, Gun*)> fire, std::string sound) :
-	m_world(world), m_fireRate(fireRate), m_player(player), m_fire(fire)
+#include "SoundBufferManager.hpp"
+
+Gun::Gun(World & world, float fireRate, float bulletSpeed, bool player, std::function<void(float, World *, Gun*)> fire, std::string sound) :
+	m_world(world), m_fireRate(fireRate), m_bulletSpeed(bulletSpeed), m_player(player), m_fire(fire) 
 {
 	m_lastFire = m_fireRate;
 
@@ -26,7 +28,7 @@ void Gun::fire()
 
 	m_lastFire = 0.0f;
 
-	m_fire(&m_world, this);
+	m_fire(m_bulletSpeed, &m_world, this);
 	
 	m_fireSound.play();
 }

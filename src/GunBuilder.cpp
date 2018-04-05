@@ -14,6 +14,13 @@ GunBuilder & GunBuilder::setFireRate(float fireRate)
 	return *this;
 }
 
+GunBuilder & GunBuilder::setBulletSpeed(float bulletSpeed)
+{
+	m_bulletSpeed = bulletSpeed;
+
+	return *this;
+}
+
 GunBuilder & GunBuilder::setWorld(World & world)
 {
 	m_world = &world;
@@ -21,7 +28,7 @@ GunBuilder & GunBuilder::setWorld(World & world)
 	return *this;
 }
 
-GunBuilder & GunBuilder::setFire(std::function<void(World*, Gun*)> fire)
+GunBuilder & GunBuilder::setFire(std::function<void(float, World*, Gun*)> fire)
 {
 	m_fire = fire;
 
@@ -37,7 +44,7 @@ GunBuilder & GunBuilder::setSound(std::string soundSrc)
 
 GameObject * GunBuilder::build()
 {
-	Gun * gun = new Gun(*m_world, m_fireRate, m_player, m_fire, m_soundSrc);
+	Gun * gun = new Gun(*m_world, m_fireRate, m_bulletSpeed, m_player, m_fire, m_soundSrc);
 
 	return gun;
 }

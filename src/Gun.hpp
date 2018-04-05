@@ -3,13 +3,11 @@
 
 #include "GameObject.hpp"
 
-#include "World.hpp"
-
-#include "SoundBufferManager.hpp"
-
 #include <functional>
 
 #include <iostream>
+
+class World;
 
 class Gun : public GameObject
 {
@@ -19,17 +17,19 @@ protected:
 	
 	const float m_fireRate;
 
-	const bool m_player = false;
+	const float m_bulletSpeed;
+
+	const bool m_player;
 
 	float m_lastFire = 0.0f;
 
-	std::function<void(World*, Gun*)> m_fire;
+	std::function<void(float, World*, Gun*)> m_fire;
 	
 	sf::Sound m_fireSound;
 
 public:
 
-	Gun(World & world, float fireRate, bool player, std::function<void(World*, Gun*)> fire, std::string soundSrc);
+	Gun(World & world, float fireRate, float bulletSpeed, bool player, std::function<void(float, World*, Gun*)> fire, std::string soundSrc);
 
 	void update(float delta);
 

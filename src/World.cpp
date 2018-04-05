@@ -19,6 +19,7 @@
 #include "LevelDisplay.hpp"
 
 #include "GunBuilder.hpp"
+
 #include "BulletBuilder.hpp"
 
 #include "TextureManager.hpp"
@@ -45,7 +46,7 @@ World::World()
 
 	gunBuilder.setWorld(*this).setFireRate(0.07f).setPlayer(true).setSound("res/sound/galaga_shoot1.ogg");
 
-	gunBuilder.setFire([](World * world, Gun * gun)
+	gunBuilder.setFire([](float bulletSpeed, World * world, Gun * gun)
 	{
 		float rotation = gun->getRotation() * (Math::PI / 180.0f);
 

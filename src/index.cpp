@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
 
+#include <SFML/Network.hpp>
+
 #include <iostream>
 
 #include "StateManager.hpp"
@@ -13,8 +15,6 @@
 #include "SoundBufferManager.hpp"
 
 #include "Define.hpp"
-
-#include <SFML/Network.hpp>
 
 int main(void)
 {
@@ -37,10 +37,6 @@ int main(void)
 	std::cout << "Loading Fonts..." << std::endl;
 
 	FontManager::instance().loadFromIndex("res/fonts/fontIndex.txt");
-
-	// FontManager::instance().loadFromFile("mono", "res/fonts/LiberationMono-Regular.ttf");
-
-	// FontManager::instance().loadFromFile("game", "res/fonts/Audiowide-Regular.ttf");
 
 	std::cout << std::endl;
 
@@ -92,4 +88,6 @@ int main(void)
 	SoundBufferManager::instance().cleanUp();
 
 	FontManager::instance().cleanUp();
+
+	return 0;
 }

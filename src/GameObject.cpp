@@ -1,5 +1,7 @@
 #include "GameObject.hpp"
 
+#include "Collision.hpp"
+
 #include "Define.hpp"
 
 #include <iostream>

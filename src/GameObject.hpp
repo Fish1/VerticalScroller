@@ -1,11 +1,13 @@
 #ifndef GAMEOBJECT_HPP
 #define GAMEOBJECT_HPP
 
-#include "Collision.hpp"
+//#include "Collision.hpp"
 
 #include <SFML/Graphics.hpp>
 
 #include <SFML/Audio.hpp>
+
+class Collision;
 
 class GameObject : public sf::Drawable
 {

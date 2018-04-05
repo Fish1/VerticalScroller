@@ -17,9 +17,11 @@ private:
 
 	float m_fireRate;
 
+	float m_bulletSpeed;
+
 	World * m_world;
 
-	std::function<void(World*, Gun*)> m_fire;
+	std::function<void(float, World*, Gun*)> m_fire;
 	
 	std::string m_soundSrc;
 
@@ -29,9 +31,11 @@ public:
 
 	GunBuilder & setFireRate(float fireRate);
 
+	GunBuilder & setBulletSpeed(float bulletSpeed);
+
 	GunBuilder & setWorld(World & world);
 
-	GunBuilder & setFire(std::function<void(World*, Gun*)> fire);
+	GunBuilder & setFire(std::function<void(float, World*, Gun*)> fire);
 	
 	GunBuilder & setSound(std::string soundSrc);
 

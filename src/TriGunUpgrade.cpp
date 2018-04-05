@@ -5,9 +5,14 @@
 #include "SoundBufferManager.hpp"
 
 #include "GunBuilder.hpp"
+
 #include "BulletBuilder.hpp"
 
+#include "Bullet.hpp"
+
 #include "Player.hpp"
+
+#include "World.hpp"
 
 #include "Math.hpp"
 
@@ -25,7 +30,7 @@ void TriGunUpgrade::activate(Player & player, World & world)
 	// Create a new gun
 
 	builder.setPlayer(true).setFireRate(0.2f).setWorld(world).setSound("galaga_shoot1")
-	.setFire([](World * world, Gun * gun) 
+	.setFire([](float bulletSpeed, World * world, Gun * gun) 
 	{
 		BulletBuilder bb;
 

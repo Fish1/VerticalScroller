@@ -1,5 +1,5 @@
-test missing 1 200
-enemy1 enemy1 1 300
-enemy2 enemy1 1 350
-enemy3 enemy2 1 375
-boss1 boss1 30 200
+test missing 1 200 single_500_1
+enemy1 enemy1 1 300 single_500_1
+enemy2 enemy1 1 350 single_500_1
+enemy3 enemy2 1 375 single_500_1
+boss1 boss1 30 200 single_500_1

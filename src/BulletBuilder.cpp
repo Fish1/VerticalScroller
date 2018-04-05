@@ -1,5 +1,7 @@
 #include "BulletBuilder.hpp"
 
+#include "Bullet.hpp"
+
 GameObject * BulletBuilder::build()
 {
 	return new Bullet(m_position, m_direction, m_speed, *m_texture);

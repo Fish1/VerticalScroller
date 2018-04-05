@@ -3,8 +3,6 @@
 
 #include "Builder.hpp"
 
-#include "Bullet.hpp"
-
 #include <SFML/Graphics.hpp>
 
 class BulletBuilder : public Builder

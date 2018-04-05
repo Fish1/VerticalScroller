@@ -21,6 +21,8 @@
 
 #include "Math.hpp"
 
+#include "World.hpp"
+
 #include <fstream>
 
 #include <iostream>
@@ -29,10 +31,10 @@ Spawner::Spawner(World & world) :
 	m_world(world)
 {
 	m_enemyFactory = new EnemyFactory();
-
 	m_gunFactory = new GunFactory(world);
 
-	m_enemyFactory->loadFromFile("res/entities/enemies.txt");
+	m_gunFactory->loadFromFile("res/guns/guns.txt", world);
+	m_enemyFactory->loadFromFile("res/entities/enemies.txt", world, *m_gunFactory);
 }
 
 // Determine when to spawn new GameObjects.
