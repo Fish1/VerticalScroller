@@ -18,7 +18,9 @@
 
 #include "LevelDisplay.hpp"
 
-#include "GunBuilder.hpp"
+#include "GunFactory.hpp"
+
+#include "Gun.hpp"
 
 #include "BulletBuilder.hpp"
 
@@ -42,29 +44,9 @@ World::World()
 
 	m_upgrades.push_back(upgrade);
 
-	GunBuilder gunBuilder;
-
-	gunBuilder.setWorld(*this).setFireRate(0.07f).setPlayer(true).setSound("res/sound/galaga_shoot1.ogg");
-
-	gunBuilder.setFire([](float bulletSpeed, World * world, Gun * gun, bool playerBullet)
-	{
-		float rotation = gun->getRotation() * (Math::PI / 180.0f);
-
-		float x = cos(rotation);
-
-		float y = sin(rotation);
-
-		BulletBuilder bb;
-
-		bb.setTexture(TextureManager::instance().get("smallprojectile_a"));
-		bb.setPosition(gun->getPosition());
-		bb.setDirection(sf::Vector2f(x, y));
-		bb.setSpeed(600.0f);
-
-		world->addBullet(dynamic_cast<Bullet*>(bb.build()), true);
-	});
-
-	dynamic_cast<Player*>(m_player)->setGun(dynamic_cast<Gun*>(gunBuilder.build()));
+	GunFactory gunFactory(*this, true);
+	gunFactory.loadFromFile("res/guns/guns.txt", *this);
+	dynamic_cast<Player*>(m_player)->setGun(dynamic_cast<Gun*>(gunFactory.build("single_600_0.5")));
 }
 
 World::~World()

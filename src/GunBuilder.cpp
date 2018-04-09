@@ -1,12 +1,5 @@
 #include "GunBuilder.hpp"
 
-GunBuilder & GunBuilder::setPlayer(bool player)
-{
-	m_player = player;
-
-	return *this;
-}
-
 GunBuilder & GunBuilder::setFireRate(float fireRate)
 {
 	m_fireRate = fireRate;
@@ -44,7 +37,7 @@ GunBuilder & GunBuilder::setSound(std::string soundSrc)
 
 GameObject * GunBuilder::build()
 {
-	Gun * gun = new Gun(*m_world, m_fireRate, m_bulletSpeed, m_player, m_fire, m_soundSrc);
+	Gun * gun = new Gun(*m_world, m_fireRate, m_bulletSpeed, m_fire, m_soundSrc);
 
 	return gun;
 }

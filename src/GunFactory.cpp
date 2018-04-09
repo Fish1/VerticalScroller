@@ -47,7 +47,6 @@ void GunFactory::loadFromFile(std::string filename, World & world)
 
 GameObject * GunFactory::build(std::string key)
 {
-	dynamic_cast<GunBuilder*>(m_builders.at(key))->setPlayer(m_playerGuns);
 	return m_builders.at(key)->build();
 }
 

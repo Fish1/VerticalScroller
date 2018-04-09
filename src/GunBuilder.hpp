@@ -13,8 +13,6 @@ class GunBuilder : public Builder
 {
 private:
 
-	bool m_player = false;
-
 	float m_fireRate;
 
 	float m_bulletSpeed;
@@ -26,8 +24,6 @@ private:
 	std::string m_soundSrc;
 
 public:
-
-	GunBuilder & setPlayer(bool player);
 
 	GunBuilder & setFireRate(float fireRate);
 

@@ -19,8 +19,6 @@ protected:
 
 	const float m_bulletSpeed;
 
-	const bool m_player;
-
 	float m_lastFire = 0.0f;
 
 	std::function<void(float, World*, Gun*, bool)> m_fire;
@@ -29,11 +27,11 @@ protected:
 
 public:
 
-	Gun(World & world, float fireRate, float bulletSpeed, bool player, std::function<void(float, World*, Gun*, bool)> fire, std::string soundSrc);
+	Gun(World & world, float fireRate, float bulletSpeed, std::function<void(float, World*, Gun*, bool)> fire, std::string soundSrc);
 
 	void update(float delta);
 
-	void fire();
+	void fire(bool playerBullet);
 
 	bool canFire() const;
 };

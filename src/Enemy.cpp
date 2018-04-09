@@ -87,7 +87,7 @@ void Enemy::update(float delta)
 
 		m_gun->setRotation(getRotation());
 
-		m_gun->fire();
+		m_gun->fire(false);
 	}
 }
 
