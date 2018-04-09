@@ -35,7 +35,7 @@ void StateManager::update(sf::RenderTarget & target)
 
 	m_clock.restart();
 
-	//m_state->update(time.asSeconds());
+	benchmark(time.asSeconds());
 
 	m_state->update(0.01f < time.asSeconds() ? 0.01f : time.asSeconds());
 	
@@ -53,4 +53,24 @@ void StateManager::update(sf::RenderTarget & target)
 	target.clear();
 
 	target.draw(*m_state);
+}
+
+void StateManager::benchmark(float delta)
+{
+	m_avgDelta_Count += 1;
+	m_avgDelta_Total += delta;
+	m_avgDelta_Time += delta;
+
+	if(m_avgDelta_Time >= 1.0f)
+	{
+		m_avgDelta = m_avgDelta_Total / m_avgDelta_Count;
+		m_avgDelta_Time = 0.0f;
+		m_avgDelta_Count = 0;
+		m_avgDelta_Total = 0;
+	}
+}
+
+float StateManager::getAverageDelta()
+{
+	return m_avgDelta;
 }

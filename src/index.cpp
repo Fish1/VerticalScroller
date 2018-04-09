@@ -75,6 +75,8 @@ int main(void)
 		}
 
 		stateManager->update(window);
+
+		//window.setTitle("Agalag  " + std::to_string(stateManager->getAverageDelta()));
 		
 		window.display();
 	}

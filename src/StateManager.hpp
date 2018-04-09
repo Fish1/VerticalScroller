@@ -13,6 +13,11 @@ private:
 
 	State * m_state;
 
+	float m_avgDelta_Time = 0;
+	float m_avgDelta_Total = 0.0f;
+	float m_avgDelta_Count = 0.0f;
+	float m_avgDelta = 0.0f;
+
 public:
 
 	StateManager();
@@ -45,6 +50,10 @@ public:
 	 *	@return - void
 	 */
 	void update(sf::RenderTarget & target);
+
+	void benchmark(float delta);
+
+	float getAverageDelta();
 };
 
 #endif
