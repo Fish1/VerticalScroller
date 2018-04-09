@@ -28,7 +28,7 @@ GunBuilder & GunBuilder::setWorld(World & world)
 	return *this;
 }
 
-GunBuilder & GunBuilder::setFire(std::function<void(float, World*, Gun*)> fire)
+GunBuilder & GunBuilder::setFire(std::function<void(float, World*, Gun*, bool)> fire)
 {
 	m_fire = fire;
 

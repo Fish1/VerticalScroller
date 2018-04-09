@@ -130,28 +130,18 @@ public:
 	void addEnemy(Enemy * enemy);
 
 	/*
-	 * 	Adds a bullet to the world for it to
-	 * 	be update and rendered. This bullet 
-	 * 	will not harm the players ship.
-	 *
-	 *	@param1 - The bullet to be added
-	 *	to the m_playerBullets vector.
-	 *
-	 *	@return - void
-	 */
-	void addPlayerBullet(Bullet * bullet);
-
-	/*
 	 * 	Adds a bullet to the world for it to be updated
-	 * 	and rendered. This bullet will not harm
-	 * 	any enemy ship.
+	 * 	and rendered.
 	 *
 	 *	@param1 - the bullet that to be added 
 	 *	to the m_enemyBullets vector.
 	 *
+	 *	@param2 - determines if the bullet
+	 *	will harm the player or enemies
+	 *
 	 *	@return - void
 	 */
-	void addEnemyBullet(Bullet * bullet);
+	void addBullet(Bullet * bullet, bool playerBullet);
 
 	/*
 	 *	If this returns true then the player has beat the

@@ -1,2 +1,3 @@
 single_600_0.5 single 600 0.5
 single_500_1 single 500 1
+shotgun_500_1 shotgun 500 1

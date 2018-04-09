@@ -1,0 +1,2 @@
+trigun trishot_600_0.5
+shotgun shotgun_500_1

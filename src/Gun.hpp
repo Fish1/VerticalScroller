@@ -23,13 +23,13 @@ protected:
 
 	float m_lastFire = 0.0f;
 
-	std::function<void(float, World*, Gun*)> m_fire;
+	std::function<void(float, World*, Gun*, bool)> m_fire;
 	
 	sf::Sound m_fireSound;
 
 public:
 
-	Gun(World & world, float fireRate, float bulletSpeed, bool player, std::function<void(float, World*, Gun*)> fire, std::string soundSrc);
+	Gun(World & world, float fireRate, float bulletSpeed, bool player, std::function<void(float, World*, Gun*, bool)> fire, std::string soundSrc);
 
 	void update(float delta);
 

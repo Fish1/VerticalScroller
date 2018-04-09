@@ -31,7 +31,7 @@ Spawner::Spawner(World & world) :
 	m_world(world)
 {
 	m_enemyFactory = new EnemyFactory();
-	m_gunFactory = new GunFactory(world);
+	m_gunFactory = new GunFactory(world, false);
 
 	m_gunFactory->loadFromFile("res/guns/guns.txt", world);
 	m_enemyFactory->loadFromFile("res/entities/enemies.txt", world, *m_gunFactory);

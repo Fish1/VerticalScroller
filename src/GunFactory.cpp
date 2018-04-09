@@ -14,7 +14,8 @@
 
 #include <fstream>
 
-GunFactory::GunFactory(World & world)
+GunFactory::GunFactory(World & world, bool playerGuns) :
+	m_playerGuns(playerGuns)
 {
 	loadFireTypes(world);
 }
@@ -46,14 +47,15 @@ void GunFactory::loadFromFile(std::string filename, World & world)
 
 GameObject * GunFactory::build(std::string key)
 {
+	dynamic_cast<GunBuilder*>(m_builders.at(key))->setPlayer(m_playerGuns);
 	return m_builders.at(key)->build();
 }
 
 void GunFactory::loadFireTypes(World & world)
 {
-	std::function<void(float, World*, Gun*)> singleShot;
+	std::function<void(float, World*, Gun*, bool)> singleShot;
 
-	singleShot = [](float bulletSpeed, World * world, Gun * gun)
+	singleShot = [](float bulletSpeed, World * world, Gun * gun, bool playerBullet)
 	{
 		float rotation = gun->getRotation() * (Math::PI / 180.0f);
 		float x = cos(rotation);
@@ -66,16 +68,16 @@ void GunFactory::loadFireTypes(World & world)
 		bb.setSpeed(bulletSpeed);
 		bb.setTexture(TextureManager::instance().get("smallprojectile_a"));
 
-		world->addEnemyBullet(dynamic_cast<Bullet*>(bb.build()));
+		world->addBullet(dynamic_cast<Bullet*>(bb.build()), playerBullet);
 	};
 	
 	m_fireTypes.insert(
-	std::pair<std::string,std::function<void(float, World*, Gun*)> >("single", singleShot)
+	std::pair<std::string,std::function<void(float, World*, Gun*, bool)> >("single", singleShot)
 	);
 
-	std::function<void(float, World*, Gun*)> triShot;
+	std::function<void(float, World*, Gun*, bool)> triShot;
 
-	triShot = [](float bulletSpeed, World * world, Gun * gun)
+	triShot = [](float bulletSpeed, World * world, Gun * gun, bool playerBullet)
 	{
 		BulletBuilder bb;
 
@@ -87,21 +89,53 @@ void GunFactory::loadFireTypes(World & world)
 		float x = cos(rotation);
 		float y = sin(rotation);
 		bb.setDirection(sf::Vector2f(x, y));
-		world->addPlayerBullet(dynamic_cast<Bullet*>(bb.build()));
+		world->addBullet(dynamic_cast<Bullet*>(bb.build()), playerBullet);
 
 		rotation += 10.0f * (Math::PI / 180.0f);
 		x = cos(rotation);
 		y = sin(rotation);
 		bb.setDirection(sf::Vector2f(x, y));
-		world->addPlayerBullet(dynamic_cast<Bullet*>(bb.build()));
+		world->addBullet(dynamic_cast<Bullet*>(bb.build()), playerBullet);
 		
 		rotation -= 20.0f * (Math::PI / 180.0f);
 		x = cos(rotation);
 		y = sin(rotation);
 		bb.setDirection(sf::Vector2f(x, y));
-		world->addPlayerBullet(dynamic_cast<Bullet*>(bb.build()));
+		world->addBullet(dynamic_cast<Bullet*>(bb.build()), playerBullet);
 	};
 	
 	m_fireTypes.insert(
-	std::pair<std::string, std::function<void(float, World*, Gun*)> >("tri", triShot));
+	std::pair<std::string, std::function<void(float, World*, Gun*, bool)> >("tri", triShot));
+
+	std::function<void(float, World*, Gun*, bool)> shotgunShot;
+
+	shotgunShot = [](float bulletSpeed, World * world, Gun * gun, bool playerBullet)
+	{
+		BulletBuilder bb;
+
+		bb.setPosition(gun->getPosition());
+		bb.setSpeed(bulletSpeed);
+		bb.setTexture(TextureManager::instance().get("smallprojectile_a"));
+
+		float rotation = gun->getRotation() * (Math::PI / 180.0f);
+		float x = cos(rotation);
+		float y = sin(rotation);
+		bb.setDirection(sf::Vector2f(x, y));
+		world->addBullet(dynamic_cast<Bullet*>(bb.build()), playerBullet);
+
+		bb.setPosition(gun->getPosition() + sf::Vector2f(10.0f, 10.0f));
+		world->addBullet(dynamic_cast<Bullet*>(bb.build()), playerBullet);
+		
+		bb.setPosition(gun->getPosition() + sf::Vector2f(-10.0f, 10.0f));
+		world->addBullet(dynamic_cast<Bullet*>(bb.build()), playerBullet);
+		
+		bb.setPosition(gun->getPosition() + sf::Vector2f(-10.0f, -10.0f));
+		world->addBullet(dynamic_cast<Bullet*>(bb.build()), playerBullet);
+		
+		bb.setPosition(gun->getPosition() + sf::Vector2f(10.0f, -10.0f));
+		world->addBullet(dynamic_cast<Bullet*>(bb.build()), playerBullet);
+	};
+
+	m_fireTypes.insert(
+	std::pair<std::string, std::function<void(float, World*, Gun*, bool)>>("shotgun", shotgunShot));
 }

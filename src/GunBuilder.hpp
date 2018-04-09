@@ -21,7 +21,7 @@ private:
 
 	World * m_world;
 
-	std::function<void(float, World*, Gun*)> m_fire;
+	std::function<void(float, World*, Gun*, bool)> m_fire;
 	
 	std::string m_soundSrc;
 
@@ -35,7 +35,7 @@ public:
 
 	GunBuilder & setWorld(World & world);
 
-	GunBuilder & setFire(std::function<void(float, World*, Gun*)> fire);
+	GunBuilder & setFire(std::function<void(float, World*, Gun*, bool)> fire);
 	
 	GunBuilder & setSound(std::string soundSrc);
 

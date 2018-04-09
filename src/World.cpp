@@ -46,7 +46,7 @@ World::World()
 
 	gunBuilder.setWorld(*this).setFireRate(0.07f).setPlayer(true).setSound("res/sound/galaga_shoot1.ogg");
 
-	gunBuilder.setFire([](float bulletSpeed, World * world, Gun * gun)
+	gunBuilder.setFire([](float bulletSpeed, World * world, Gun * gun, bool playerBullet)
 	{
 		float rotation = gun->getRotation() * (Math::PI / 180.0f);
 
@@ -61,7 +61,7 @@ World::World()
 		bb.setDirection(sf::Vector2f(x, y));
 		bb.setSpeed(600.0f);
 
-		world->addPlayerBullet(dynamic_cast<Bullet*>(bb.build()));
+		world->addBullet(dynamic_cast<Bullet*>(bb.build()), true);
 	});
 
 	dynamic_cast<Player*>(m_player)->setGun(dynamic_cast<Gun*>(gunBuilder.build()));
@@ -114,18 +114,17 @@ void World::addEnemy(Enemy * enemy)
 	m_enemies.push_back(enemy);
 }
 
-// Adds a bullet to the world for it to be updated and rendered. This bullet
-// will not harm any enemy ship.
-void World::addEnemyBullet(Bullet * bullet)
+// Adds a bullet to the world for it to be updated and rendered.
+void World::addBullet(Bullet * bullet, bool playerBullet)
 {
-	m_enemyBullets.push_back(bullet);
-}
-
-// Adds a bullet to the world for it to be updated and rendered. This bullet
-// will not harm the players ship.
-void World::addPlayerBullet(Bullet * bullet)
-{
-	m_playerBullets.push_back(bullet);
+	if(playerBullet)
+	{
+		m_playerBullets.push_back(bullet);
+	}
+	else
+	{
+		m_enemyBullets.push_back(bullet);
+	}
 }
 
 void World::draw(sf::RenderTarget & target, sf::RenderStates states) const
