@@ -24,13 +24,13 @@ MenuState::MenuState()
 
 	m_quitButton = new Button(sf::Vector2f(100.0f, 720.0f / 1.2f), "QUIT");
 
-	m_leaderBoardButton = new Button(sf::Vector2f(720.0f / 2.0f, 100.0f), "LEADERBOARD");
+//	m_leaderBoardButton = new Button(sf::Vector2f(720.0f / 2.0f, 100.0f), "LEADERBOARD");
 
 	if(g_user == nullptr)
 	{
-		m_registerButton = new Button(sf::Vector2f(720.0f / 2.0f, 720.0f / 1.2f), "REGISTER");
+//		m_registerButton = new Button(sf::Vector2f(720.0f / 2.0f, 720.0f / 1.2f), "REGISTER");
 
-		m_loginButton = new Button(sf::Vector2f(720.0f / 2.0f, 720.0f / 1.5f), "LOGIN");
+//		m_loginButton = new Button(sf::Vector2f(720.0f / 2.0f, 720.0f / 1.5f), "LOGIN");
 	}
 	else
 	{
@@ -53,7 +53,10 @@ MenuState::~MenuState()
 
 	delete m_quitButton;
 
-	delete m_leaderBoardButton;
+	if(m_leaderBoardButton != nullptr)
+	{
+		delete m_leaderBoardButton;
+	}
 
 	if(m_registerButton != nullptr)
 	{
@@ -112,6 +115,16 @@ void MenuState::update(float delta)
 			m_nextState = new MenuState();
 		}
 	}
+	
+	if(m_leaderBoardButton != nullptr)
+	{
+		m_leaderBoardButton->update(delta);
+
+		if(dynamic_cast<Button*>(m_leaderBoardButton)->justClicked())
+		{
+			m_nextState = new LeaderBoardState();
+		}
+	}
 
 	m_startButton->update(delta);
 	
@@ -126,14 +139,6 @@ void MenuState::update(float delta)
 	{
 		exit(0);
 	}
-
-	m_leaderBoardButton->update(delta);
-
-	if(dynamic_cast<Button*>(m_leaderBoardButton)->justClicked())
-	{
-		m_nextState = new LeaderBoardState();
-	}
-
 }
 
 void MenuState::draw(sf::RenderTarget & target, sf::RenderStates states) const
@@ -142,7 +147,10 @@ void MenuState::draw(sf::RenderTarget & target, sf::RenderStates states) const
 
 	target.draw(*m_quitButton);
 
-	target.draw(*m_leaderBoardButton);
+	if(m_leaderBoardButton != nullptr)
+	{
+		target.draw(*m_leaderBoardButton);
+	}
 
 	if(m_registerButton != nullptr)
 	{
