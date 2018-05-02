@@ -14,3 +14,4 @@ sfml-system-2.dll
 sfml-window-2.dll
 openal32.dll
 *~
+*.swp
