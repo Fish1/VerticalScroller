@@ -2,6 +2,8 @@
 
 #include "Collision.hpp"
 
+#include "Animation.hpp"
+
 #include "Define.hpp"
 
 #include <iostream>
@@ -15,6 +17,11 @@ GameObject::~GameObject()
 {
 	delete m_sprite;
 
+	if(m_animation != nullptr)
+	{
+		delete m_animation;
+	}
+
 	if(m_collision != nullptr)
 	{
 		delete m_collision;
@@ -23,6 +30,8 @@ GameObject::~GameObject()
 
 void GameObject::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
+	m_sprite->setTexture(m_animation->getTexture());
+
 	target.draw(*m_sprite);
 
 	if(g_debug == true && m_collision != nullptr)
@@ -31,13 +40,33 @@ void GameObject::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	}
 }
 
-void GameObject::setTexture(sf::Texture & texture)
+void GameObject::setAnimation(sf::Texture & texture)
 {
-	m_sprite->setTexture(texture, true);
+	if(m_animation != nullptr)
+	{
+		delete m_animation;
+	}
+
+	m_animation = new Animation(texture, 0, 0, 0, 0);
 	
-	m_sprite->setOrigin(m_sprite->getLocalBounds().width / 2.0f, m_sprite->getLocalBounds().height / 2.0f);
-	
-	m_sprite->setScale(2.0f, 2.0f);
+
+}
+
+void GameObject::setAnimation(sf::Texture & texture,
+unsigned int sheetWidth, unsigned int sheetHeight, 
+unsigned int width, unsigned int height)
+{
+	if(m_animation != nullptr)
+	{
+		delete m_animation;
+	}
+
+	m_animation = new Animation(texture, sheetWidth, sheetHeight, width, height);
+}
+
+void GameObject::setAnimationDuration(float duration)
+{
+	m_animation->setDuration(duration);
 }
 
 void GameObject::enableCollision()
@@ -45,6 +74,18 @@ void GameObject::enableCollision()
 	if(m_collision == nullptr)
 	{
 		m_collision = new Collision(*this);
+	}
+}
+
+void GameObject::updateAnimation(float delta)
+{
+	if(m_animation != nullptr)
+	{
+		m_animation->update(delta);
+		
+		m_sprite->setTexture(m_animation->getTexture(), true);
+		
+		m_sprite->setOrigin(m_sprite->getLocalBounds().width / 2.0f, m_sprite->getLocalBounds().height / 2.0f);
 	}
 }
 
@@ -63,7 +104,7 @@ void GameObject::updateCollision()
 
 void GameObject::update(float delta)
 {
-
+	
 }
 
 void GameObject::markDelete()
@@ -104,6 +145,26 @@ void GameObject::setRotation(float rotation)
 float GameObject::getRotation() const
 {
 	return m_sprite->getRotation();
+}
+
+void GameObject::setScale(sf::Vector2f scale)
+{
+	m_sprite->setScale(scale);
+}
+
+sf::Vector2f GameObject::getScale() const
+{
+	return m_sprite->getScale();
+}
+
+void GameObject::setColor(sf::Color color)
+{
+	m_sprite->setColor(color);
+}
+
+sf::Color GameObject::getColor() const
+{
+	return m_sprite->getColor();
 }
 
 sf::FloatRect GameObject::getGlobalBounds() const

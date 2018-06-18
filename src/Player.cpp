@@ -12,8 +12,6 @@
 
 Player::Player()
 {
-	setTexture(TextureManager::instance().get("ship"));
-	
 	rotate(-90.0f);
 
 	setPosition(sf::Vector2f(720.0f / 2.0f, 720.0f - 100.0f));
@@ -21,11 +19,16 @@ Player::Player()
 	enableCollision();
 
 	setDebugColor(sf::Color::Green);
+
+	setAnimation(TextureManager::instance().get("ship"),
+	2, 1, 16, 16);
 }
 
 void Player::update(float delta)
 {
 	updateCollision();
+
+	updateAnimation(delta);
 
 	sf::Vector2i mouse = MouseManager::instance()->getPosition();
 

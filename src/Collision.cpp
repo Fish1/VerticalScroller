@@ -22,6 +22,11 @@ Collision::~Collision()
 void Collision::calculatePoints()
 {
 	sf::FloatRect bounds = m_gameObject.getLocalBounds();
+	//bounds.width *= m_gameObject.getScale().x;
+	//bounds.height *= m_gameObject.getScale().y;
+	
+	bounds.width *= 0.5f;
+	bounds.height *= 0.5f;
 
 	float radius = sqrt(bounds.height * bounds.height + bounds.width * bounds.width);
 
@@ -202,4 +207,9 @@ bool Collision::intersects(Collision & other)
 		intersectsAxis(axis_b, other) &&
 		intersectsAxis(axis_c, other) &&
 		intersectsAxis(axis_d, other);
+}
+
+GameObject * Collision::test()
+{
+	return &m_gameObject;
 }

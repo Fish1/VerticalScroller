@@ -20,7 +20,7 @@
 
 TriGunUpgrade::TriGunUpgrade()
 {
-	setTexture(TextureManager::instance().get("triupgrade"));
+	setAnimation(TextureManager::instance().get("triupgrade"));
 
 	enableCollision();
 }

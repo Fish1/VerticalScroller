@@ -17,6 +17,8 @@ class Spawner;
 
 class LevelDisplay;
 
+class StarField;
+
 class World : public sf::Drawable
 {
 private:
@@ -28,6 +30,8 @@ private:
 	GameObject * m_player = nullptr;
 
 	LevelDisplay * m_levelDisplay = nullptr;
+
+	StarField * m_starField = nullptr;
 		
 	std::vector<GameObject *> m_enemies;
 

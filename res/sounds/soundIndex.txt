@@ -1,1 +1,4 @@
 galaga_shoot1.ogg
+explosion1.wav
+explosion2.wav
+explosion3.wav

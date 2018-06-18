@@ -18,6 +18,8 @@
 
 int main(void)
 {
+	g_debug = true;
+
 	sf::RenderWindow window(sf::VideoMode(720, 720), "Agalag", sf::Style::Close);
 
 	std::cout << std::endl;

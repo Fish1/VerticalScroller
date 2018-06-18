@@ -6,6 +6,8 @@
 
 #include "TextureManager.hpp"
 
+#include "SoundBufferManager.hpp"
+
 #include "Path.hpp"
 
 #include "CubicCurve.hpp"
@@ -21,11 +23,15 @@
 Enemy::Enemy(float health, float speed, std::string texture) :
 	m_speed(speed), m_health(health)
 {
-	setTexture(TextureManager::instance().get(texture));
+	setAnimation(TextureManager::instance().get(texture));
 
 	enableCollision();
 
 	setDebugColor(sf::Color::Red);
+
+	m_deathSound.setBuffer(SoundBufferManager::instance().get("explosion1"));
+
+	m_deathSound.setVolume(50.0f);
 }
 
 Enemy::~Enemy()
@@ -48,6 +54,8 @@ void Enemy::setPath(Path * path)
 void Enemy::update(float delta)
 {
 	updateCollision();
+
+	updateAnimation(delta);
 
 	if(m_path != nullptr)
 	{
@@ -94,6 +102,8 @@ void Enemy::update(float delta)
 void Enemy::takeDamage(float damage)
 {
 	m_health -= damage;
+
+	m_deathSound.play();
 }
 
 float Enemy::getHealth()

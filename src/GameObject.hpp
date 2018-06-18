@@ -9,11 +9,15 @@
 
 class Collision;
 
+class Animation;
+
 class GameObject : public sf::Drawable
 {
 private:
 	
 	sf::Sprite * m_sprite = nullptr;
+
+	Animation * m_animation = nullptr;
 
 	Collision * m_collision = nullptr;
 
@@ -23,11 +27,19 @@ private:
 
 protected:
 
-	void setTexture(sf::Texture & texture);
+	void setAnimation(sf::Texture & texture);
+
+	void setAnimation(sf::Texture & texture, 
+	unsigned int sheetWidth, unsigned int sheetHeight, 
+	unsigned int width, unsigned int height);
+
+	void setAnimationDuration(float duration);
 
 	void enableCollision();
 	
 	void updateCollision();
+
+	void updateAnimation(float delta);
 
 public:
 
@@ -54,6 +66,14 @@ public:
 	void setRotation(float rotation);
 
 	float getRotation() const;
+
+	void setScale(sf::Vector2f scale);
+
+	sf::Vector2f getScale() const;
+
+	void setColor(sf::Color color);
+
+	sf::Color getColor() const;
 
 	sf::FloatRect getGlobalBounds() const;
 

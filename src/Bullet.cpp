@@ -9,7 +9,7 @@
 Bullet::Bullet(sf::Vector2f position, sf::Vector2f direction, float speed, sf::Texture & texture) :
 	m_speed(speed)
 {
-	setTexture(texture);
+	setAnimation(texture);
 
 	setPosition(position);
 

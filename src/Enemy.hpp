@@ -19,6 +19,8 @@ private:
 
 	Gun * m_gun = nullptr;
 
+	sf::Sound m_deathSound;
+
 public:
 
 	Enemy(float health, float speed, std::string texture);

@@ -39,6 +39,8 @@ public:
 	void update();
 
 	bool intersects(Collision & other);
+
+	GameObject * test();
 };
 
 #endif

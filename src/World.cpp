@@ -18,6 +18,8 @@
 
 #include "LevelDisplay.hpp"
 
+#include "StarField.hpp"
+
 #include "GunFactory.hpp"
 
 #include "Gun.hpp"
@@ -37,6 +39,8 @@ World::World()
 	m_player = new Player();
 
 	m_levelDisplay = new LevelDisplay(m_spawner->getLevelName());
+
+	m_starField = new StarField();
 
 	Upgrade * upgrade = new TriGunUpgrade;
 	
@@ -111,6 +115,8 @@ void World::addBullet(Bullet * bullet, bool playerBullet)
 
 void World::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
+	target.draw(*m_starField);
+
 	for(GameObject * bullet : m_playerBullets)
 	{
 		target.draw(*bullet);
@@ -139,6 +145,8 @@ void World::draw(sf::RenderTarget & target, sf::RenderStates states) const
 // Calls all of the other update functions.
 void World::update(float delta)
 {
+	m_starField->update(delta);
+	
 	updateSpawner(delta);
 
 	updateGameObjects(delta);
