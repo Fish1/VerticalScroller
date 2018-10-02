@@ -7,14 +7,28 @@ set(EXECUTABLE "app")
 
 add_executable(${EXECUTABLE} ${SRC})
 
-set(CMAKE_MODULE_PATH "/usr/share/SFML/cmake/Modules/" ${CMAKE_MODULE_PATH})
-find_package(SFML 2.4 REQUIRED system window graphics network audio)
+message("THIS IS A TEST MESSAGE !!! !!!")
 
-include_directories(${SFML_INCLUDE_DIR})
-target_link_libraries(${EXECUTABLE} ${SFML_LIBRARIES})
+set(CMAKE_MODULE_PATH "/usr/share/SFML/cmake/Modules/" ${CMAKE_MODULE_PATH})
+find_package(SFML 2.5 REQUIRED system window graphics network audio)
+
+if(SFML_FOUND)
+	include_directories(${SFML_INCLUDE_DIR})
+	target_link_libraries(${EXECUTABLE} ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
+elseif()
+	message(STATUS "THIS FAILED TO DO SHIT")
+endif()
+
+message(STATUS "${EXECUTABLE}")
+message(STATUS "${SFML_FOUND}")
+message(STATUS "${SFML_ROOT}")
+message(STATUS "${SFML_INCLUDE_DIR}")
+message(STATUS "${SFML_LIBRARIES}")
+message(STATUS "${SFML_DEPENDENCIES}")
 
 target_compile_options(app PRIVATE "-Werror")
 target_compile_options(app PRIVATE "-Wall")
+target_compile_options(app PRIVATE "-std=c++11")
 
 install(TARGETS ${EXECUTABLE} DESTINATION bin)
 
